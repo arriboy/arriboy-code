@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Deducciones personales explicadas a tu nivel — Arriboy-code</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink: #0B0F14;
+    --slate: #1B222B;
+    --slate-2: #242C36;
+    --bone: #E7E4DA;
+    --bone-dim: #A9A69C;
+    --gold: #F2B705;
+    --coral: #FF4757;
+    --mint: #37D9A4;
+    --display: 'Space Grotesk', sans-serif;
+    --body: 'Inter', sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+  }
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  html{ scroll-behavior: smooth; }
+  body{
+    background: var(--ink);
+    color: var(--bone);
+    font-family: var(--body);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  a{ color: inherit; }
+  .wrap{ max-width: 880px; margin: 0 auto; padding: 0 24px; }
+  header{
+    position: sticky; top: 0; z-index: 20;
+    background: rgba(11,15,20,0.85);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(231,228,218,0.08);
+  }
+  nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding: 18px 0; max-width: 1120px; margin: 0 auto;
+    padding-left: 24px; padding-right: 24px;
+  }
+  .logo{
+    font-family: var(--mono); font-weight: 600; font-size: 1.05rem;
+    text-decoration: none; display:flex; align-items:center;
+  }
+  .logo .accent{ color: var(--gold); }
+  .logo .dim{ color: var(--bone-dim); }
+  .back-link{
+    font-family: var(--mono); font-size: 0.85rem;
+    color: var(--bone-dim); text-decoration: none;
+  }
+  .back-link:hover{ color: var(--bone); }
+  .article-header{ padding: 56px 0 28px; }
+  .eyebrow{
+    font-family: var(--mono); font-size: 0.8rem;
+    color: var(--gold); margin-bottom: 16px;
+  }
+  h1{
+    font-family: var(--display); font-weight: 700;
+    font-size: clamp(1.8rem, 4.5vw, 2.6rem);
+    line-height: 1.15; margin-bottom: 16px;
+  }
+  .subtitle{ color: var(--bone-dim); font-size: 1.05rem; max-width: 62ch; }
+  .facts{
+    background: var(--slate);
+    border: 1px solid rgba(231,228,218,0.08);
+    border-radius: 12px; padding: 22px 24px; margin: 32px 0 44px;
+    display:grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+  }
+  @media (max-width: 640px){ .facts{ grid-template-columns: 1fr; } }
+  .fact-label{
+    font-family: var(--mono); font-size: 0.75rem;
+    color: var(--bone-dim); margin-bottom: 6px;
+  }
+  .fact-value{
+    font-family: var(--display); font-weight: 600;
+    color: var(--mint); font-size: 1.05rem;
+  }
+  .level-bar{
+    position: sticky; top: 66px; z-index: 15;
+    background: var(--slate);
+    border: 1px solid rgba(231,228,218,0.08);
+    border-radius: 12px; padding: 14px 16px; margin-bottom: 40px;
+    display:flex; align-items:center; gap: 10px; flex-wrap: wrap;
+  }
+  .level-bar-label{
+    font-family: var(--mono); font-size: 0.78rem;
+    color: var(--bone-dim); margin-right: 4px;
+  }
+  .level-tab{
+    font-family: var(--mono); font-size: 0.82rem;
+    background: transparent; border: 1px solid rgba(231,228,218,0.15);
+    color: var(--bone-dim); padding: 8px 14px; border-radius: 20px;
+    cursor: pointer; transition: all .15s ease;
+  }
+  .level-tab:hover{ color: var(--bone); border-color: rgba(231,228,218,0.35); }
+  .level-tab.active{
+    background: var(--gold); border-color: var(--gold);
+    color: var(--ink); font-weight: 600;
+  }
+  .level-content{ display: none; animation: fade .3s ease; }
+  .level-content.active{ display: block; }
+  @keyframes fade{
+    from{ opacity: 0; transform: translateY(6px); }
+    to{ opacity: 1; transform: translateY(0); }
+  }
+  @media (prefers-reduced-motion: reduce){ .level-content{ animation: none; } }
+  .level-content h2{
+    font-family: var(--display); font-size: 1.3rem;
+    font-weight: 600; margin: 34px 0 14px;
+  }
+  .level-content h2:first-child{ margin-top: 0; }
+  .level-content p{ color: var(--bone); margin-bottom: 14px; max-width: 68ch; }
+  .example-box{
+    background: var(--slate-2); border-left: 3px solid var(--gold);
+    border-radius: 8px; padding: 16px 20px; margin: 18px 0; font-size: 0.95rem;
+  }
+  .example-box .tag{
+    font-family: var(--mono); font-size: 0.72rem;
+    color: var(--gold); display:block; margin-bottom: 8px;
+  }
+  ul.reqs{ margin: 0 0 14px 20px; color: var(--bone); }
+  ul.reqs li{ margin-bottom: 8px; }
+  .note{
+    background: rgba(242,183,5,0.08);
+    border: 1px solid rgba(242,183,5,0.25);
+    border-radius: 10px; padding: 16px 20px; font-size: 0.9rem;
+    color: var(--bone-dim); margin: 40px 0 60px;
+  }
+  .note strong{ color: var(--gold); }
+  footer{
+    border-top: 1px solid rgba(231,228,218,0.08);
+    padding: 28px 0 40px; font-family: var(--mono);
+    font-size: 0.8rem; color: var(--bone-dim);
+    max-width: 1120px; margin: 0 auto;
+    padding-left: 24px; padding-right: 24px;
+  }
+  :focus-visible{ outline: 2px solid var(--gold); outline-offset: 2px; }
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <a href="index.html" class="logo"><span class="accent">$</span> arriboy<span class="dim">-</span>code</a>
+    <a href="leyes.html" class="back-link">← volver a leyes e impuestos</a>
+  </nav>
+</header>
+
+<main class="wrap">
+  <div class="article-header">
+    <div class="eyebrow">$ arriboy --leyes / artículo 02</div>
+    <h1>Deducciones personales: cómo recuperar dinero en tu declaración anual</h1>
+    <p class="subtitle">Gastos médicos, colegiaturas, seguros y más que probablemente ya pagaste este año — y que puedes usar para pagar menos impuestos o recibir saldo a favor.</p>
+  </div>
+
+  <div class="facts">
+    <div>
+      <div class="fact-label">LÍMITE GENERAL</div>
+      <div class="fact-value">5 UMAs o 15% de ingresos (el menor)</div>
+    </div>
+    <div>
+      <div class="fact-label">REQUISITO CLAVE</div>
+      <div class="fact-value">CFDI + pago electrónico</div>
+    </div>
+    <div>
+      <div class="fact-label">FECHA LÍMITE</div>
+      <div class="fact-value">30 de abril</div>
+    </div>
+  </div>
+
+  <div class="level-bar" role="tablist" aria-label="Nivel de explicación">
+    <span class="level-bar-label">explicar como a alguien de:</span>
+    <button class="level-tab active" data-level="primaria">Primaria</button>
+    <button class="level-tab" data-level="secundaria">Secundaria</button>
+    <button class="level-tab" data-level="prepa">Preparatoria</button>
+    <button class="level-tab" data-level="experto">Experto</button>
+  </div>
+
+  <article class="level-content active" data-level-content="primaria">
+    <h2>¿Qué son las deducciones personales?</h2>
+    <p>Una vez al año, las personas que trabajan le cuentan al gobierno cuánto ganaron — eso se llama "declaración". Si durante el año gastaste dinero en cosas como ir al doctor o pagar la escuela, puedes contárselo al gobierno, y a cambio te descuentan un poco de lo que tienes que pagar. A veces hasta te regresan dinero.</p>
+
+    <h2>¿En qué gastos aplica?</h2>
+    <p>En cosas como: ir al doctor o al dentista, comprar lentes, pagar el seguro médico, o pagar la colegiatura de la escuela (desde preescolar hasta prepa).</p>
+
+    <div class="example-box">
+      <span class="tag">EJEMPLO FÁCIL</span>
+      Es como cuando guardas los recibos de algo que compraste por si necesitas devolverlo — aquí guardas los recibos (facturas) de esos gastos para poder "devolver" una parte de tus impuestos.
+    </div>
+
+    <h2>¿Qué necesito guardar?</h2>
+    <p>La factura oficial (se llama CFDI) de cada gasto, y haber pagado con tarjeta o transferencia — no en efectivo, porque si no, no cuenta.</p>
+  </article>
+
+  <article class="level-content" data-level-content="secundaria">
+    <h2>¿Qué son las deducciones personales?</h2>
+    <p>Son gastos que la ley permite restar de tus ingresos cuando presentas tu declaración anual ante el SAT, para pagar menos Impuesto Sobre la Renta (ISR) o recibir un saldo a favor (que te regresen dinero).</p>
+
+    <h2>¿Qué gastos puedo incluir?</h2>
+    <ul class="reqs">
+      <li>Consultas médicas, dentales, hospitalizaciones y análisis clínicos.</li>
+      <li>Seguros de gastos médicos.</li>
+      <li>Colegiaturas privadas (preescolar a bachillerato).</li>
+      <li>Intereses reales de un crédito hipotecario.</li>
+      <li>Aportaciones voluntarias para tu retiro (Afore).</li>
+      <li>Donativos a instituciones autorizadas por el SAT.</li>
+    </ul>
+
+    <div class="example-box">
+      <span class="tag">EJEMPLO</span>
+      Si gastaste $15,000 en el año en consultas médicas y lentes, con factura y pagados con tarjeta, ese monto puede restarse de tus ingresos al calcular tu impuesto — bajando lo que debes pagar.
+    </div>
+
+    <h2>Requisitos importantes</h2>
+    <p>Todo gasto debe tener factura electrónica (CFDI) a tu nombre, con tu RFC correcto, y haberse pagado con tarjeta, transferencia o cheque — nunca en efectivo.</p>
+  </article>
+
+  <article class="level-content" data-level-content="prepa">
+    <h2>¿Qué son las deducciones personales?</h2>
+    <p>Son los gastos que el artículo 151 de la Ley del ISR permite restar de tus ingresos acumulables en la declaración anual, reduciendo la base sobre la que se calcula tu Impuesto Sobre la Renta.</p>
+
+    <h2>El límite general</h2>
+    <p>La mayoría de las deducciones (médicas, seguros, hipoteca, donativos, retiro) están sujetas a un tope conjunto: <strong>5 UMAs anuales o el 15% de tus ingresos totales del año, lo que resulte menor</strong>. El valor de la UMA cambia cada año, así que el monto exacto en pesos varía — conviene revisarlo en el sitio del SAT antes de tu declaración. Lo que exceda ese límite simplemente no se puede deducir; no se guarda para el siguiente año.</p>
+
+    <div class="example-box">
+      <span class="tag">DATO CLAVE</span>
+      Las colegiaturas <strong>no</strong> entran en este límite general — tienen su propio tope, separado, según el nivel educativo (preescolar, primaria, secundaria, etc.), publicado cada año por Hacienda.
+    </div>
+
+    <h2>Categorías principales</h2>
+    <ul class="reqs">
+      <li>Gastos médicos, dentales, psicológicos, de nutrición y análisis clínicos (propios o de dependientes económicos).</li>
+      <li>Primas de seguros de gastos médicos mayores.</li>
+      <li>Colegiaturas privadas con RVOE, de preescolar a bachillerato (límite aparte por nivel).</li>
+      <li>Intereses reales de créditos hipotecarios para casa habitación.</li>
+      <li>Aportaciones voluntarias a tu Afore (límite: 1 UMA anual).</li>
+      <li>Donativos a donatarias autorizadas (hasta 7% de tus ingresos del ejercicio anterior).</li>
+    </ul>
+
+    <h2>Requisitos de forma</h2>
+    <p>Todo gasto necesita CFDI a tu nombre y pago por medios electrónicos (tarjeta, transferencia, cheque) — los pagos en efectivo no son deducibles, aunque tengas factura. Importante: si tributas en <strong>RESICO</strong>, no puedes aplicar estas deducciones personales, ya que ese régimen usa una tasa fija preferencial que ya sustituye ese beneficio.</p>
+  </article>
+
+  <article class="level-content" data-level-content="experto">
+    <h2>Marco legal</h2>
+    <p>El artículo 151 de la LISR enumera las deducciones personales aplicables a personas físicas en su declaración anual. El límite global aplicable a la mayoría de los conceptos (fracciones I, II, III, IV, VI) es el menor entre 5 UMAs anuales y el 15% del total de los ingresos del contribuyente, incluyendo ingresos exentos. El excedente no es deducible ni acumulable a ejercicios posteriores.</p>
+
+    <h2>Tratamiento diferenciado por concepto</h2>
+    <ul class="reqs">
+      <li><strong>Honorarios médicos y hospitalarios:</strong> deducibles al 100% en casos de capacidad ordinaria; en incapacidad o discapacidad certificada, ciertos conceptos pueden no sujetarse al límite general.</li>
+      <li><strong>Colegiaturas:</strong> estímulo fiscal independiente (decreto presidencial), con topes anuales por nivel educativo, adicional al límite general de 5 UMA/15%.</li>
+      <li><strong>Intereses hipotecarios reales:</strong> se calcula como la diferencia entre interés nominal pagado e inflación del periodo; la institución financiera emite constancia anual.</li>
+      <li><strong>Aportaciones voluntarias al retiro:</strong> límite propio de 1 UMA anual, adicional al tope general.</li>
+      <li><strong>Donativos:</strong> hasta 7% de los ingresos acumulables del ejercicio inmediato anterior a donatarias autorizadas; hasta 4% adicional si se destinan a la Federación, entidades federativas o municipios.</li>
+    </ul>
+
+    <div class="example-box">
+      <span class="tag">REQUISITO DE FORMA</span>
+      El campo "Uso de CFDI" debe corresponder a los códigos de deducción personal (D01–D10). Si el emisor capturó un uso distinto, el gasto no se precargará correctamente en el aplicativo del SAT, y es necesario solicitar cancelación y reexpedición del comprobante.
+    </div>
+
+    <h2>Exclusiones relevantes</h2>
+    <p>Los contribuyentes bajo el Régimen Simplificado de Confianza (RESICO) para personas físicas no pueden aplicar deducciones personales conforme al artículo 113-I de la LISR, al tratarse de un régimen que ya opera con tasa preferencial fija sobre ingresos, sin mecanismo de deducciones adicionales.</p>
+  </article>
+
+  <div class="note">
+    <strong>Nota:</strong> esta información es educativa y general, basada en el artículo 151 de la LISR y disposiciones vigentes para 2026. Los montos exactos en pesos dependen del valor de la UMA de cada año — verifica la cifra actual en el portal del SAT antes de presentar tu declaración. No sustituye la asesoría de un contador público certificado.
+  </div>
+</main>
+
+<footer>
+  arriboy-code · artículo educativo · 2026
+</footer>
+
+<script>
+  const tabs = document.querySelectorAll('.level-tab');
+  const contents = document.querySelectorAll('.level-content');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const level = tab.getAttribute('data-level');
+      tabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      contents.forEach(c => {
+        c.classList.toggle('active', c.getAttribute('data-level-content') === level);
+      });
+    });
+  });
+</script>
+
+</body>
+</html>
