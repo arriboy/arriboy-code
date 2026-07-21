@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RESICO explicado a tu nivel — Arriboy-code</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink: #0B0F14;
+    --slate: #1B222B;
+    --slate-2: #242C36;
+    --bone: #E7E4DA;
+    --bone-dim: #A9A69C;
+    --gold: #F2B705;
+    --coral: #FF4757;
+    --mint: #37D9A4;
+
+    --display: 'Space Grotesk', sans-serif;
+    --body: 'Inter', sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  html{ scroll-behavior: smooth; }
+
+  body{
+    background: var(--ink);
+    color: var(--bone);
+    font-family: var(--body);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a{ color: inherit; }
+
+  .wrap{
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  header{
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: rgba(11,15,20,0.85);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(231,228,218,0.08);
+  }
+
+  nav{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding: 18px 0;
+    max-width: 1120px;
+    margin: 0 auto;
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+
+  .logo{
+    font-family: var(--mono);
+    font-weight: 600;
+    font-size: 1.05rem;
+    text-decoration: none;
+    display:flex;
+    align-items:center;
+  }
+  .logo .accent{ color: var(--gold); }
+  .logo .dim{ color: var(--bone-dim); }
+
+  .back-link{
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    color: var(--bone-dim);
+    text-decoration: none;
+  }
+  .back-link:hover{ color: var(--bone); }
+
+  .article-header{
+    padding: 56px 0 32px;
+  }
+
+  .eyebrow{
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    color: var(--gold);
+    margin-bottom: 16px;
+  }
+
+  h1{
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: clamp(1.8rem, 4.5vw, 2.6rem);
+    line-height: 1.15;
+    margin-bottom: 16px;
+  }
+
+  .subtitle{
+    color: var(--bone-dim);
+    font-size: 1.05rem;
+    max-width: 62ch;
+  }
+
+  /* Quick facts box */
+  .facts{
+    background: var(--slate);
+    border: 1px solid rgba(231,228,218,0.08);
+    border-radius: 12px;
+    padding: 22px 24px;
+    margin: 32px 0 48px;
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  @media (max-width: 640px){
+    .facts{ grid-template-columns: 1fr; }
+  }
+  .fact-label{
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--bone-dim);
+    margin-bottom: 6px;
+  }
+  .fact-value{
+    font-family: var(--display);
+    font-weight: 600;
+    color: var(--mint);
+    font-size: 1.15rem;
+  }
+
+  /* Level explainer (same pattern as home) */
+  .demo{
+    background: var(--slate);
+    border: 1px solid rgba(231,228,218,0.08);
+    border-radius: 14px;
+    overflow: hidden;
+    margin-bottom: 40px;
+  }
+  .demo-topbar{
+    display:flex;
+    align-items:center;
+    justify-content: space-between;
+    padding: 14px 20px;
+    border-bottom: 1px solid rgba(231,228,218,0.08);
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    color: var(--bone-dim);
+  }
+  .level-tabs{
+    display:flex;
+    gap: 6px;
+    padding: 16px 20px 0;
+    flex-wrap: wrap;
+  }
+  .level-tab{
+    font-family: var(--mono);
+    font-size: 0.82rem;
+    background: transparent;
+    border: 1px solid rgba(231,228,218,0.15);
+    color: var(--bone-dim);
+    padding: 8px 14px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all .15s ease;
+  }
+  .level-tab:hover{ color: var(--bone); border-color: rgba(231,228,218,0.35); }
+  .level-tab.active{
+    background: var(--gold);
+    border-color: var(--gold);
+    color: var(--ink);
+    font-weight: 600;
+  }
+  .demo-body{
+    padding: 22px 24px 28px;
+    min-height: 140px;
+  }
+  .demo-answer{
+    font-size: 1.02rem;
+    max-width: 65ch;
+    animation: fade .25s ease;
+  }
+  @keyframes fade{
+    from{ opacity: 0; transform: translateY(4px); }
+    to{ opacity: 1; transform: translateY(0); }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .demo-answer{ animation: none; }
+  }
+
+  .note{
+    background: rgba(242,183,5,0.08);
+    border: 1px solid rgba(242,183,5,0.25);
+    border-radius: 10px;
+    padding: 16px 20px;
+    font-size: 0.9rem;
+    color: var(--bone-dim);
+    margin-bottom: 60px;
+  }
+  .note strong{ color: var(--gold); }
+
+  footer{
+    border-top: 1px solid rgba(231,228,218,0.08);
+    padding: 28px 0 40px;
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    color: var(--bone-dim);
+    max-width: 1120px;
+    margin: 0 auto;
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+
+  :focus-visible{
+    outline: 2px solid var(--gold);
+    outline-offset: 2px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <a href="index.html" class="logo"><span class="accent">$</span> arriboy<span class="dim">-</span>code</a>
+    <a href="index.html" class="back-link">← volver al inicio</a>
+  </nav>
+</header>
+
+<main class="wrap">
+  <div class="article-header">
+    <div class="eyebrow">$ arriboy --leyes / artículo 01</div>
+    <h1>RESICO: el régimen que te hace pagar muchísimo menos ISR</h1>
+    <p class="subtitle">Si trabajas por tu cuenta en México (vendes algo, das un servicio, cobras honorarios), esto probablemente te ahorre dinero cada mes.</p>
+  </div>
+
+  <div class="facts">
+    <div>
+      <div class="fact-label">TASA DE ISR</div>
+      <div class="fact-value">1% – 2.5%</div>
+    </div>
+    <div>
+      <div class="fact-label">LÍMITE DE INGRESOS ANUALES</div>
+      <div class="fact-value">$3.5 millones</div>
+    </div>
+    <div>
+      <div class="fact-label">VIGENTE DESDE</div>
+      <div class="fact-value">Enero 2022</div>
+    </div>
+  </div>
+
+  <div class="demo">
+    <div class="demo-topbar">
+      <span>arriboy-code / leyes / resico.explica()</span>
+      <span>●&nbsp;niveles</span>
+    </div>
+    <div class="level-tabs" role="tablist" aria-label="Nivel de explicación">
+      <button class="level-tab active" data-level="primaria">Primaria</button>
+      <button class="level-tab" data-level="secundaria">Secundaria</button>
+      <button class="level-tab" data-level="prepa">Preparatoria</button>
+      <button class="level-tab" data-level="experto">Experto</button>
+    </div>
+    <div class="demo-body">
+      <div class="demo-answer" id="demo-answer">RESICO es una regla especial del gobierno para que las personas que trabajan por su cuenta paguen muy poquito de un impuesto llamado ISR — en vez de pagar mucho, solo pagan un pedacito de lo que ganan cada mes.</div>
+    </div>
+  </div>
+
+  <div class="note">
+    <strong>Nota:</strong> esta información es educativa y general. No sustituye la asesoría de un contador certificado para tu caso particular — las reglas pueden cambiar y cada situación fiscal es distinta.
+  </div>
+</main>
+
+<footer>
+  arriboy-code · artículo educativo · 2026
+</footer>
+
+<script>
+  const answers = {
+    primaria: "RESICO es una regla especial del gobierno para que las personas que trabajan por su cuenta paguen muy poquito de un impuesto llamado ISR — en vez de pagar mucho, solo pagan un pedacito de lo que ganan cada mes.",
+    secundaria: "RESICO es un régimen fiscal para personas que trabajan de forma independiente en México (venden algo o cobran por un servicio). En vez de pagar con las tasas normales, que pueden ser muy altas, pagan una tasa reducida de entre 1% y 2.5% sobre el dinero que efectivamente cobran cada mes.",
+    prepa: "El Régimen Simplificado de Confianza (RESICO) es un esquema del SAT para personas físicas con actividad empresarial o profesional, vigente desde 2022. Aplica tasas de ISR de 1% a 2.5% sobre los ingresos efectivamente cobrados (no sobre la utilidad), a cambio de renunciar a deducir gastos del negocio. Solo aplica si tus ingresos anuales no superan los $3.5 millones de pesos.",
+    experto: "RESICO (clave SAT 626) sustituye, para personas físicas de ingresos bajos y medios, el esquema de Actividades Empresariales y Profesionales. Grava los ingresos efectivamente percibidos —no la utilidad fiscal— con tasas progresivas de 1.00% a 2.50% según el nivel de facturación mensual, con pagos mensuales definitivos y sin declaración anual complementaria para quienes solo tributan bajo este régimen. Superar los $3,500,000 de ingresos acumulados en el ejercicio obliga a migrar al régimen general de forma irreversible para el resto del año fiscal."
+  };
+
+  const tabs = document.querySelectorAll('.level-tab');
+  const answerEl = document.getElementById('demo-answer');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      const level = tab.getAttribute('data-level');
+      answerEl.style.animation = 'none';
+      void answerEl.offsetWidth;
+      answerEl.style.animation = '';
+      answerEl.textContent = answers[level];
+    });
+  });
+</script>
+
+</body>
+</html>
