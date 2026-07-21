@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Derechos laborales explicados a tu nivel — Arriboy-code</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink: #0B0F14; --slate: #1B222B; --slate-2: #242C36;
+    --bone: #E7E4DA; --bone-dim: #A9A69C;
+    --gold: #F2B705; --coral: #FF4757; --mint: #37D9A4;
+    --display: 'Space Grotesk', sans-serif;
+    --body: 'Inter', sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+  }
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  html{ scroll-behavior: smooth; }
+  body{
+    background: var(--ink); color: var(--bone);
+    font-family: var(--body); line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  a{ color: inherit; }
+  .wrap{ max-width: 880px; margin: 0 auto; padding: 0 24px; }
+  header{
+    position: sticky; top: 0; z-index: 20;
+    background: rgba(11,15,20,0.85); backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(231,228,218,0.08);
+  }
+  nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding: 18px 0; max-width: 1120px; margin: 0 auto;
+    padding-left: 24px; padding-right: 24px;
+  }
+  .logo{
+    font-family: var(--mono); font-weight: 600; font-size: 1.05rem;
+    text-decoration: none; display:flex; align-items:center;
+  }
+  .logo .accent{ color: var(--gold); }
+  .logo .dim{ color: var(--bone-dim); }
+  .back-link{ font-family: var(--mono); font-size: 0.85rem; color: var(--bone-dim); text-decoration: none; }
+  .back-link:hover{ color: var(--bone); }
+  .article-header{ padding: 56px 0 28px; }
+  .eyebrow{ font-family: var(--mono); font-size: 0.8rem; color: var(--gold); margin-bottom: 16px; }
+  h1{
+    font-family: var(--display); font-weight: 700;
+    font-size: clamp(1.8rem, 4.5vw, 2.6rem); line-height: 1.15; margin-bottom: 16px;
+  }
+  .subtitle{ color: var(--bone-dim); font-size: 1.05rem; max-width: 62ch; }
+  .facts{
+    background: var(--slate); border: 1px solid rgba(231,228,218,0.08);
+    border-radius: 12px; padding: 22px 24px; margin: 32px 0 44px;
+    display:grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+  }
+  @media (max-width: 640px){ .facts{ grid-template-columns: 1fr; } }
+  .fact-label{ font-family: var(--mono); font-size: 0.75rem; color: var(--bone-dim); margin-bottom: 6px; }
+  .fact-value{ font-family: var(--display); font-weight: 600; color: var(--mint); font-size: 1.05rem; }
+  .level-bar{
+    position: sticky; top: 66px; z-index: 15;
+    background: var(--slate); border: 1px solid rgba(231,228,218,0.08);
+    border-radius: 12px; padding: 14px 16px; margin-bottom: 40px;
+    display:flex; align-items:center; gap: 10px; flex-wrap: wrap;
+  }
+  .level-bar-label{ font-family: var(--mono); font-size: 0.78rem; color: var(--bone-dim); margin-right: 4px; }
+  .level-tab{
+    font-family: var(--mono); font-size: 0.82rem; background: transparent;
+    border: 1px solid rgba(231,228,218,0.15); color: var(--bone-dim);
+    padding: 8px 14px; border-radius: 20px; cursor: pointer; transition: all .15s ease;
+  }
+  .level-tab:hover{ color: var(--bone); border-color: rgba(231,228,218,0.35); }
+  .level-tab.active{ background: var(--gold); border-color: var(--gold); color: var(--ink); font-weight: 600; }
+  .level-content{ display: none; animation: fade .3s ease; }
+  .level-content.active{ display: block; }
+  @keyframes fade{ from{ opacity: 0; transform: translateY(6px); } to{ opacity: 1; transform: translateY(0); } }
+  @media (prefers-reduced-motion: reduce){ .level-content{ animation: none; } }
+  .level-content h2{ font-family: var(--display); font-size: 1.3rem; font-weight: 600; margin: 34px 0 14px; }
+  .level-content h2:first-child{ margin-top: 0; }
+  .level-content p{ color: var(--bone); margin-bottom: 14px; max-width: 68ch; }
+  .example-box{
+    background: var(--slate-2); border-left: 3px solid var(--gold);
+    border-radius: 8px; padding: 16px 20px; margin: 18px 0; font-size: 0.95rem;
+  }
+  .example-box .tag{ font-family: var(--mono); font-size: 0.72rem; color: var(--gold); display:block; margin-bottom: 8px; }
+  ul.reqs{ margin: 0 0 14px 20px; color: var(--bone); }
+  ul.reqs li{ margin-bottom: 8px; }
+  .note{
+    background: rgba(242,183,5,0.08); border: 1px solid rgba(242,183,5,0.25);
+    border-radius: 10px; padding: 16px 20px; font-size: 0.9rem; color: var(--bone-dim); margin: 40px 0 60px;
+  }
+  .note strong{ color: var(--gold); }
+  footer{
+    border-top: 1px solid rgba(231,228,218,0.08); padding: 28px 0 40px;
+    font-family: var(--mono); font-size: 0.8rem; color: var(--bone-dim);
+    max-width: 1120px; margin: 0 auto; padding-left: 24px; padding-right: 24px;
+  }
+  :focus-visible{ outline: 2px solid var(--gold); outline-offset: 2px; }
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <a href="index.html" class="logo"><span class="accent">$</span> arriboy<span class="dim">-</span>code</a>
+    <a href="leyes.html" class="back-link">← volver a leyes e impuestos</a>
+  </nav>
+</header>
+
+<main class="wrap">
+  <div class="article-header">
+    <div class="eyebrow">$ arriboy --leyes / artículo 04</div>
+    <h1>Derechos laborales que casi nadie reclama</h1>
+    <p class="subtitle">Aguinaldo, reparto de utilidades (PTU) y finiquito — dinero que la ley dice que te corresponde, y que muchas personas dejan pasar por no saber que existe.</p>
+  </div>
+
+  <div class="facts">
+    <div>
+      <div class="fact-label">AGUINALDO MÍNIMO</div>
+      <div class="fact-value">15 días de salario</div>
+    </div>
+    <div>
+      <div class="fact-label">PTU (UTILIDADES)</div>
+      <div class="fact-value">10% de la utilidad</div>
+    </div>
+    <div>
+      <div class="fact-label">FECHA LÍMITE AGUINALDO</div>
+      <div class="fact-value">20 de diciembre</div>
+    </div>
+  </div>
+
+  <div class="level-bar" role="tablist" aria-label="Nivel de explicación">
+    <span class="level-bar-label">explicar como a alguien de:</span>
+    <button class="level-tab active" data-level="primaria">Primaria</button>
+    <button class="level-tab" data-level="secundaria">Secundaria</button>
+    <button class="level-tab" data-level="prepa">Preparatoria</button>
+    <button class="level-tab" data-level="experto">Experto</button>
+  </div>
+
+  <article class="level-content active" data-level-content="primaria">
+    <h2>El aguinaldo</h2>
+    <p>Cuando una persona trabaja todo el año en una empresa, la ley dice que le tienen que dar un dinero extra antes de Navidad — se llama aguinaldo. Es como un regalo obligatorio por ley, no algo que la empresa decide si quiere dar o no.</p>
+
+    <h2>El reparto de utilidades (PTU)</h2>
+    <p>Si la empresa donde alguien trabaja ganó dinero durante el año, la ley dice que debe compartir una parte de esas ganancias con sus trabajadores — porque ellos ayudaron a que la empresa ganara ese dinero.</p>
+
+    <div class="example-box">
+      <span class="tag">EJEMPLO FÁCIL</span>
+      Es como si ayudaras a vender limonada en un puesto familiar — si el puesto gana dinero, es justo que a ti también te toque una parte, no solo al dueño.
+    </div>
+
+    <h2>El finiquito</h2>
+    <p>Cuando alguien deja de trabajar en un lugar (porque renuncia o porque lo despiden), la empresa le debe pagar el dinero que le falta: días trabajados, vacaciones que no usó, y su aguinaldo de esos meses.</p>
+  </article>
+
+  <article class="level-content" data-level-content="secundaria">
+    <h2>El aguinaldo</h2>
+    <p>Es una prestación obligatoria: todo trabajador tiene derecho a recibir, antes del 20 de diciembre, un pago equivalente a mínimo 15 días de salario por cada año trabajado. Si trabajaste menos de un año, te corresponde la parte proporcional.</p>
+
+    <h2>El reparto de utilidades (PTU)</h2>
+    <p>Si la empresa tuvo ganancias en el año, debe repartir el 10% de esa utilidad entre sus trabajadores. No todos tienen derecho: quedan fuera directores, gerentes generales, socios, trabajadores domésticos y quienes laboraron menos de 60 días en el año.</p>
+
+    <div class="example-box">
+      <span class="tag">EJEMPLO</span>
+      Si una empresa debe repartir $20,000 pesos de PTU, la mitad ($10,000) se reparte según los días trabajados de cada persona, y la otra mitad ($10,000) según su salario.
+    </div>
+
+    <h2>El finiquito</h2>
+    <p>Al salir de un trabajo (por cualquier motivo), la empresa debe pagarte: salarios pendientes, vacaciones no disfrutadas, prima vacacional y aguinaldo proporcional del año en curso. Si te despidieron sin causa justificada, además te corresponde una indemnización aparte.</p>
+
+    <h2>¿Y si no te lo pagan?</h2>
+    <p>Puedes reclamarlo ante la PROFEDET (Procuraduría Federal de la Defensa del Trabajo), que da asesoría gratuita a trabajadores.</p>
+  </article>
+
+  <article class="level-content" data-level-content="prepa">
+    <h2>Aguinaldo</h2>
+    <p>Conforme al artículo 87 de la Ley Federal del Trabajo (LFT), el aguinaldo es una prestación obligatoria de mínimo 15 días de salario por año completo trabajado, pagadera antes del 20 de diciembre. No depende de si la empresa tuvo ganancias — es un derecho fijo.</p>
+
+    <h2>PTU (Participación de los Trabajadores en las Utilidades)</h2>
+    <p>Regulado por los artículos 117 al 131 de la LFT y con rango constitucional (Art. 123), el PTU obliga a repartir el 10% de la utilidad fiscal de la empresa. Se paga antes del 30 de mayo (empresas persona moral) o 29 de junio (personas físicas con actividad empresarial). El tope individual es de 3 meses de salario o el promedio de PTU de los últimos 3 años, lo que sea mayor.</p>
+
+    <ul class="reqs">
+      <li><strong>No tienen derecho:</strong> directores, gerentes generales, socios/accionistas, trabajadores domésticos, y eventuales con menos de 60 días trabajados en el año.</li>
+      <li>Empresas de nueva creación están exentas durante su primer año de operación.</li>
+      <li>Si terminaste tu relación laboral pero trabajaste 60+ días ese año fiscal, igual tienes derecho a tu PTU proporcional.</li>
+    </ul>
+
+    <div class="example-box">
+      <span class="tag">DATO CLAVE</span>
+      La PTU está exenta de ISR hasta 15 UMAs anuales (aproximadamente $18,600 en 2026); lo que exceda ese monto sí paga impuesto.
+    </div>
+
+    <h2>Finiquito vs. Liquidación</h2>
+    <p>El <strong>finiquito</strong> incluye lo que ya generaste y no te han pagado: salarios pendientes, vacaciones no gozadas, prima vacacional y aguinaldo proporcional (Arts. 50, 76, 80, 87 y 162 LFT). La <strong>liquidación</strong> se suma al finiquito solo cuando el despido fue sin causa justificada, e incluye indemnización constitucional (3 meses de salario) más 20 días por año trabajado.</p>
+  </article>
+
+  <article class="level-content" data-level-content="experto">
+    <h2>Aguinaldo — base legal</h2>
+    <p>Art. 87 LFT: mínimo 15 días de salario por año, prorrateable para fracciones de año, exigible antes del 20 de diciembre. Constituye salario para efectos de integración al Salario Diario Integrado (SDI) en la parte que corresponda.</p>
+
+    <h2>PTU — mecánica y exclusiones</h2>
+    <p>Fundamento constitucional en el Art. 123, fracción IX, y regulación en los Arts. 117–131 LFT. El monto repartible se divide en dos partes iguales: 50% en proporción a los días trabajados por cada persona, 50% en proporción a los salarios devengados. Exclusiones del Art. 127 LFT: directores, administradores y gerentes generales; socios y accionistas; trabajadores domésticos; profesionistas bajo contrato de honorarios; eventuales con menos de 60 días en el ejercicio. También exentas: empresas en su primer año de operación, empresas del IMSS, instituciones públicas asistenciales sin fines de lucro, y empresas con capital menor al umbral fijado por la STPS (actualmente $300,000 al cierre del ejercicio).</p>
+
+    <div class="example-box">
+      <span class="tag">PRESCRIPCIÓN Y RECLAMO</span>
+      El derecho a reclamar PTU no cobrada prescribe en un año desde la fecha en que debió pagarse. El reclamo se presenta ante la PROFEDET o la Junta/Centro de Conciliación y Registro Laboral correspondiente.
+    </div>
+
+    <h2>Finiquito y liquidación — integración salarial</h2>
+    <p>La indemnización constitucional, los 20 días por año y la prima de antigüedad deben calcularse sobre el Salario Diario Integrado (SDI) real —que incorpora las proporciones de aguinaldo, prima vacacional y vacaciones— y no sobre el salario base. Un cálculo hecho únicamente sobre salario base subestima el monto legalmente debido. La PTU vencida de ejercicios anteriores no forma parte del finiquito; se reclama de manera independiente.</p>
+
+    <ul class="reqs">
+      <li>Carta de finiquito con desglose de cada concepto, firmada por ambas partes.</li>
+      <li>CFDI de nómina correspondiente al finiquito.</li>
+      <li>Constancia de baja del IMSS (el patrón tiene 5 días hábiles para tramitarla).</li>
+    </ul>
+  </article>
+
+  <div class="note">
+    <strong>Nota:</strong> esta información es educativa y general, basada en la Ley Federal del Trabajo vigente en 2026. Si tienes un caso específico sin resolver, la PROFEDET ofrece asesoría legal gratuita: 800-911-7877. No sustituye la asesoría de un abogado laboral.
+  </div>
+</main>
+
+<footer>
+  arriboy-code · artículo educativo · 2026
+</footer>
+
+<script>
+  const tabs = document.querySelectorAll('.level-tab');
+  const contents = document.querySelectorAll('.level-content');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const level = tab.getAttribute('data-level');
+      tabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      contents.forEach(c => {
+        c.classList.toggle('active', c.getAttribute('data-level-content') === level);
+      });
+    });
+  });
+</script>
+
+</body>
+</html>
