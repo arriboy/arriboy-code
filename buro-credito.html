@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Buró de crédito explicado a tu nivel — Arriboy-code</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink: #0B0F14; --slate: #1B222B; --slate-2: #242C36;
+    --bone: #E7E4DA; --bone-dim: #A9A69C;
+    --gold: #F2B705; --coral: #FF4757; --mint: #37D9A4;
+    --display: 'Space Grotesk', sans-serif;
+    --body: 'Inter', sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+  }
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  html{ scroll-behavior: smooth; }
+  body{
+    background: var(--ink); color: var(--bone);
+    font-family: var(--body); line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  a{ color: inherit; }
+  .wrap{ max-width: 880px; margin: 0 auto; padding: 0 24px; }
+  header{
+    position: sticky; top: 0; z-index: 20;
+    background: rgba(11,15,20,0.85); backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(231,228,218,0.08);
+  }
+  nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding: 18px 0; max-width: 1120px; margin: 0 auto;
+    padding-left: 24px; padding-right: 24px;
+  }
+  .logo{
+    font-family: var(--mono); font-weight: 600; font-size: 1.05rem;
+    text-decoration: none; display:flex; align-items:center;
+  }
+  .logo .accent{ color: var(--gold); }
+  .logo .dim{ color: var(--bone-dim); }
+  .back-link{ font-family: var(--mono); font-size: 0.85rem; color: var(--bone-dim); text-decoration: none; }
+  .back-link:hover{ color: var(--bone); }
+  .article-header{ padding: 56px 0 28px; }
+  .eyebrow{ font-family: var(--mono); font-size: 0.8rem; color: var(--gold); margin-bottom: 16px; }
+  h1{
+    font-family: var(--display); font-weight: 700;
+    font-size: clamp(1.8rem, 4.5vw, 2.6rem); line-height: 1.15; margin-bottom: 16px;
+  }
+  .subtitle{ color: var(--bone-dim); font-size: 1.05rem; max-width: 62ch; }
+  .facts{
+    background: var(--slate); border: 1px solid rgba(231,228,218,0.08);
+    border-radius: 12px; padding: 22px 24px; margin: 32px 0 44px;
+    display:grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+  }
+  @media (max-width: 640px){ .facts{ grid-template-columns: 1fr; } }
+  .fact-label{ font-family: var(--mono); font-size: 0.75rem; color: var(--bone-dim); margin-bottom: 6px; }
+  .fact-value{ font-family: var(--display); font-weight: 600; color: var(--mint); font-size: 1.05rem; }
+  .level-bar{
+    position: sticky; top: 66px; z-index: 15;
+    background: var(--slate); border: 1px solid rgba(231,228,218,0.08);
+    border-radius: 12px; padding: 14px 16px; margin-bottom: 40px;
+    display:flex; align-items:center; gap: 10px; flex-wrap: wrap;
+  }
+  .level-bar-label{ font-family: var(--mono); font-size: 0.78rem; color: var(--bone-dim); margin-right: 4px; }
+  .level-tab{
+    font-family: var(--mono); font-size: 0.82rem; background: transparent;
+    border: 1px solid rgba(231,228,218,0.15); color: var(--bone-dim);
+    padding: 8px 14px; border-radius: 20px; cursor: pointer; transition: all .15s ease;
+  }
+  .level-tab:hover{ color: var(--bone); border-color: rgba(231,228,218,0.35); }
+  .level-tab.active{ background: var(--gold); border-color: var(--gold); color: var(--ink); font-weight: 600; }
+  .level-content{ display: none; animation: fade .3s ease; }
+  .level-content.active{ display: block; }
+  @keyframes fade{ from{ opacity: 0; transform: translateY(6px); } to{ opacity: 1; transform: translateY(0); } }
+  @media (prefers-reduced-motion: reduce){ .level-content{ animation: none; } }
+  .level-content h2{ font-family: var(--display); font-size: 1.3rem; font-weight: 600; margin: 34px 0 14px; }
+  .level-content h2:first-child{ margin-top: 0; }
+  .level-content p{ color: var(--bone); margin-bottom: 14px; max-width: 68ch; }
+  .example-box{
+    background: var(--slate-2); border-left: 3px solid var(--gold);
+    border-radius: 8px; padding: 16px 20px; margin: 18px 0; font-size: 0.95rem;
+  }
+  .example-box .tag{ font-family: var(--mono); font-size: 0.72rem; color: var(--gold); display:block; margin-bottom: 8px; }
+  ul.reqs{ margin: 0 0 14px 20px; color: var(--bone); }
+  ul.reqs li{ margin-bottom: 8px; }
+  .note{
+    background: rgba(242,183,5,0.08); border: 1px solid rgba(242,183,5,0.25);
+    border-radius: 10px; padding: 16px 20px; font-size: 0.9rem; color: var(--bone-dim); margin: 40px 0 60px;
+  }
+  .note strong{ color: var(--gold); }
+  footer{
+    border-top: 1px solid rgba(231,228,218,0.08); padding: 28px 0 40px;
+    font-family: var(--mono); font-size: 0.8rem; color: var(--bone-dim);
+    max-width: 1120px; margin: 0 auto; padding-left: 24px; padding-right: 24px;
+  }
+  :focus-visible{ outline: 2px solid var(--gold); outline-offset: 2px; }
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <a href="index.html" class="logo"><span class="accent">$</span> arriboy<span class="dim">-</span>code</a>
+    <a href="finanzas.html" class="back-link">← volver a finanzas personales</a>
+  </nav>
+</header>
+
+<main class="wrap">
+  <div class="article-header">
+    <div class="eyebrow">$ arriboy --finanzas / artículo 03</div>
+    <h1>Buró de crédito: qué es y cómo cuidarlo</h1>
+    <p class="subtitle">El "reporte de comportamiento" que los bancos revisan antes de prestarte dinero — estar ahí no es malo, pero sí importa cómo se vea tu historial.</p>
+  </div>
+
+  <div class="facts">
+    <div>
+      <div class="fact-label">CONSULTA GRATIS</div>
+      <div class="fact-value">1 vez cada 12 meses</div>
+    </div>
+    <div>
+      <div class="fact-label">RANGO DE SCORE</div>
+      <div class="fact-value">~400 a 850 puntos</div>
+    </div>
+    <div>
+      <div class="fact-label">USO IDEAL DE TU LÍMITE</div>
+      <div class="fact-value">Menos del 30%</div>
+    </div>
+  </div>
+
+  <div class="level-bar" role="tablist" aria-label="Nivel de explicación">
+    <span class="level-bar-label">explicar como a alguien de:</span>
+    <button class="level-tab active" data-level="primaria">Primaria</button>
+    <button class="level-tab" data-level="secundaria">Secundaria</button>
+    <button class="level-tab" data-level="prepa">Preparatoria</button>
+    <button class="level-tab" data-level="experto">Experto</button>
+  </div>
+
+  <article class="level-content active" data-level-content="primaria">
+    <h2>¿Qué es el Buró de Crédito?</h2>
+    <p>Es como una "libreta de calificaciones", pero de dinero. Ahí queda anotado si una persona pidió dinero prestado y si lo pagó a tiempo o no. Los bancos revisan esa libreta antes de decidir si te prestan dinero o no.</p>
+
+    <div class="example-box">
+      <span class="tag">EJEMPLO FÁCIL</span>
+      Es parecido a cuando un maestro anota si entregas tus tareas a tiempo — si siempre las entregas bien, te tienen más confianza la próxima vez.
+    </div>
+
+    <h2>¿Estar en el Buró es malo?</h2>
+    <p>No. Casi todos los adultos que alguna vez han usado una tarjeta o pedido un préstamo están ahí — lo importante no es estar, sino que tu historial se vea bien (que hayas pagado a tiempo).</p>
+  </article>
+
+  <article class="level-content" data-level-content="secundaria">
+    <h2>¿Qué es el Buró de Crédito?</h2>
+    <p>Es una empresa que junta y guarda el historial de crédito de las personas en México: qué tarjetas o préstamos tienes, cuánto debes, y si has pagado a tiempo. Los bancos consultan esta información antes de aprobarte un crédito nuevo.</p>
+
+    <h2>¿Qué es el "score"?</h2>
+    <p>Es un número (generalmente entre 400 y 850 puntos, según la fuente que consultes) que resume qué tan buen o mal historial tienes. Entre más alto, más confianza te tienen los bancos para prestarte.</p>
+
+    <div class="example-box">
+      <span class="tag">DATO CLAVE</span>
+      Tienes derecho a consultar tu propio reporte <strong>gratis una vez cada 12 meses</strong>, directamente en el sitio oficial de Buró de Crédito. Consultarlo tú mismo NO baja tu score — solo las consultas que hacen los bancos cuando pides un crédito nuevo pueden afectarlo un poco.
+    </div>
+
+    <h2>¿Cómo lo cuido?</h2>
+    <ul class="reqs">
+      <li>Paga a tiempo — un atraso de más de 30 días puede bajar tu score de forma importante.</li>
+      <li>No uses más del 30% de tu límite de crédito disponible.</li>
+      <li>No solicites muchos créditos nuevos en poco tiempo.</li>
+      <li>No canceles tarjetas antiguas con buen historial, aunque no las uses seguido.</li>
+    </ul>
+  </article>
+
+  <article class="level-content" data-level-content="prepa">
+    <h2>¿Qué es el Buró de Crédito?</h2>
+    <p>El Buró de Crédito es una Sociedad de Información Crediticia (SIC) que recopila y administra el historial crediticio de personas y empresas en México. Existe también otra SIC, Círculo de Crédito — algunas instituciones reportan a una, otras a ambas, así que tu historial puede no ser idéntico en las dos.</p>
+
+    <h2>Cómo consultarlo gratis</h2>
+    <p>Tienes derecho a un <strong>Reporte de Crédito Especial gratuito una vez cada 12 meses</strong> en cada SIC, a través de su sitio oficial (burodecredito.com.mx y circulodecredito.com.mx). Consultas adicionales en el mismo año tienen un costo aproximado de $50 a $95 pesos.</p>
+
+    <div class="example-box">
+      <span class="tag">ALERTA DE FRAUDE</span>
+      La CONDUSEF ha advertido sobre fraudes relacionados con falsas consultas de Buró — realiza siempre tu consulta directamente en los sitios oficiales, nunca a través de links de terceros o mensajes no solicitados.
+    </div>
+
+    <h2>Los factores que más pesan en tu score</h2>
+    <ul class="reqs">
+      <li><strong>Historial de pagos:</strong> el factor más importante — un solo atraso mayor a 30 días puede bajar tu score de forma notable.</li>
+      <li><strong>Nivel de utilización:</strong> procura deber menos del 30% de tu límite disponible en el momento en que el banco reporta al Buró (por ejemplo, si tu límite es $10,000, no debas más de $3,000).</li>
+      <li><strong>Antigüedad del crédito:</strong> representa una parte relevante del score — una tarjeta antigua sin atrasos es valiosa aunque no la uses seguido.</li>
+      <li><strong>Consultas recientes:</strong> cada solicitud de crédito nuevo genera una consulta; 3 o más en 6 meses puede interpretarse como señal de riesgo y bajar tu score entre 5 y 15 puntos por consulta.</li>
+    </ul>
+  </article>
+
+  <article class="level-content" data-level-content="experto">
+    <h2>Estructura del sistema en México</h2>
+    <p>El sistema de información crediticia en México opera bajo dos Sociedades de Información Crediticia autorizadas por la CNBV: Buró de Crédito (orientado principalmente a crédito de consumo bancario) y Círculo de Crédito (con fuerte presencia en crédito no bancario, fintech y microfinanzas). No todas las instituciones reportan a ambas, por lo que el historial y el score pueden diferir entre las dos plataformas para la misma persona.</p>
+
+    <h2>Metodología del score</h2>
+    <p>El score crediticio pondera múltiples variables: historial de pagos (el de mayor peso relativo), nivel de utilización del crédito disponible, antigüedad promedio de las líneas de crédito, mezcla de tipos de crédito (revolvente, hipotecario, automotriz), y número de consultas recientes ("hard inquiries"). El rango numérico varía ligeramente según la fuente y el modelo de scoring utilizado, situándose generalmente entre 400 y 850 puntos.</p>
+
+    <div class="example-box">
+      <span class="tag">MARCO REGULATORIO</span>
+      El derecho a una consulta anual gratuita del Reporte de Crédito Especial está previsto en la Ley para Regular las Sociedades de Información Crediticia. Ante errores en el reporte, el titular tiene derecho a solicitar una aclaración directamente ante la SIC correspondiente, que debe resolverse en los plazos que marca dicha ley.
+    </div>
+
+    <h2>Consideraciones estratégicas</h2>
+    <ul class="reqs">
+      <li>Diversificar tipos de crédito (revolvente + a plazo) puede mejorar el perfil de score, siempre que se maneje con disciplina de pago.</li>
+      <li>Concentrar solicitudes de crédito en ventanas cortas de tiempo genera múltiples consultas simultáneas, interpretadas como señal de búsqueda urgente de liquidez.</li>
+      <li>Mantener líneas de crédito antiguas activas (aunque con uso mínimo) preserva la antigüedad promedio del historial, evitando el efecto negativo de cancelar cuentas con buen comportamiento.</li>
+    </ul>
+  </article>
+
+  <div class="note">
+    <strong>Nota:</strong> esta información es educativa y general. Consulta tu historial únicamente en los sitios oficiales (burodecredito.com.mx, circulodecredito.com.mx) para evitar fraudes. No sustituye la asesoría de un asesor financiero certificado.
+  </div>
+</main>
+
+<footer>
+  arriboy-code · artículo educativo · 2026
+</footer>
+
+<script>
+  const tabs = document.querySelectorAll('.level-tab');
+  const contents = document.querySelectorAll('.level-content');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const level = tab.getAttribute('data-level');
+      tabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      contents.forEach(c => {
+        c.classList.toggle('active', c.getAttribute('data-level-content') === level);
+      });
+    });
+  });
+</script>
+
+</body>
+</html>
