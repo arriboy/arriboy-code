@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CAT y tasa de interés explicados a tu nivel — Arriboy-code</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink: #0B0F14; --slate: #1B222B; --slate-2: #242C36;
+    --bone: #E7E4DA; --bone-dim: #A9A69C;
+    --gold: #F2B705; --coral: #FF4757; --mint: #37D9A4;
+    --display: 'Space Grotesk', sans-serif;
+    --body: 'Inter', sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+  }
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  html{ scroll-behavior: smooth; }
+  body{
+    background: var(--ink); color: var(--bone);
+    font-family: var(--body); line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  a{ color: inherit; }
+  .wrap{ max-width: 880px; margin: 0 auto; padding: 0 24px; }
+  header{
+    position: sticky; top: 0; z-index: 20;
+    background: rgba(11,15,20,0.85); backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(231,228,218,0.08);
+  }
+  nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding: 18px 0; max-width: 1120px; margin: 0 auto;
+    padding-left: 24px; padding-right: 24px;
+  }
+  .logo{
+    font-family: var(--mono); font-weight: 600; font-size: 1.05rem;
+    text-decoration: none; display:flex; align-items:center;
+  }
+  .logo .accent{ color: var(--gold); }
+  .logo .dim{ color: var(--bone-dim); }
+  .back-link{ font-family: var(--mono); font-size: 0.85rem; color: var(--bone-dim); text-decoration: none; }
+  .back-link:hover{ color: var(--bone); }
+  .article-header{ padding: 56px 0 28px; }
+  .eyebrow{ font-family: var(--mono); font-size: 0.8rem; color: var(--gold); margin-bottom: 16px; }
+  h1{
+    font-family: var(--display); font-weight: 700;
+    font-size: clamp(1.8rem, 4.5vw, 2.6rem); line-height: 1.15; margin-bottom: 16px;
+  }
+  .subtitle{ color: var(--bone-dim); font-size: 1.05rem; max-width: 62ch; }
+  .facts{
+    background: var(--slate); border: 1px solid rgba(231,228,218,0.08);
+    border-radius: 12px; padding: 22px 24px; margin: 32px 0 44px;
+    display:grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+  }
+  @media (max-width: 640px){ .facts{ grid-template-columns: 1fr; } }
+  .fact-label{ font-family: var(--mono); font-size: 0.75rem; color: var(--bone-dim); margin-bottom: 6px; }
+  .fact-value{ font-family: var(--display); font-weight: 600; color: var(--mint); font-size: 1.05rem; }
+  .level-bar{
+    position: sticky; top: 66px; z-index: 15;
+    background: var(--slate); border: 1px solid rgba(231,228,218,0.08);
+    border-radius: 12px; padding: 14px 16px; margin-bottom: 40px;
+    display:flex; align-items:center; gap: 10px; flex-wrap: wrap;
+  }
+  .level-bar-label{ font-family: var(--mono); font-size: 0.78rem; color: var(--bone-dim); margin-right: 4px; }
+  .level-tab{
+    font-family: var(--mono); font-size: 0.82rem; background: transparent;
+    border: 1px solid rgba(231,228,218,0.15); color: var(--bone-dim);
+    padding: 8px 14px; border-radius: 20px; cursor: pointer; transition: all .15s ease;
+  }
+  .level-tab:hover{ color: var(--bone); border-color: rgba(231,228,218,0.35); }
+  .level-tab.active{ background: var(--gold); border-color: var(--gold); color: var(--ink); font-weight: 600; }
+  .level-content{ display: none; animation: fade .3s ease; }
+  .level-content.active{ display: block; }
+  @keyframes fade{ from{ opacity: 0; transform: translateY(6px); } to{ opacity: 1; transform: translateY(0); } }
+  @media (prefers-reduced-motion: reduce){ .level-content{ animation: none; } }
+  .level-content h2{ font-family: var(--display); font-size: 1.3rem; font-weight: 600; margin: 34px 0 14px; }
+  .level-content h2:first-child{ margin-top: 0; }
+  .level-content p{ color: var(--bone); margin-bottom: 14px; max-width: 68ch; }
+  .example-box{
+    background: var(--slate-2); border-left: 3px solid var(--gold);
+    border-radius: 8px; padding: 16px 20px; margin: 18px 0; font-size: 0.95rem;
+  }
+  .example-box .tag{ font-family: var(--mono); font-size: 0.72rem; color: var(--gold); display:block; margin-bottom: 8px; }
+  ul.reqs{ margin: 0 0 14px 20px; color: var(--bone); }
+  ul.reqs li{ margin-bottom: 8px; }
+  .note{
+    background: rgba(242,183,5,0.08); border: 1px solid rgba(242,183,5,0.25);
+    border-radius: 10px; padding: 16px 20px; font-size: 0.9rem; color: var(--bone-dim); margin: 40px 0 60px;
+  }
+  .note strong{ color: var(--gold); }
+  footer{
+    border-top: 1px solid rgba(231,228,218,0.08); padding: 28px 0 40px;
+    font-family: var(--mono); font-size: 0.8rem; color: var(--bone-dim);
+    max-width: 1120px; margin: 0 auto; padding-left: 24px; padding-right: 24px;
+  }
+  :focus-visible{ outline: 2px solid var(--gold); outline-offset: 2px; }
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <a href="index.html" class="logo"><span class="accent">$</span> arriboy<span class="dim">-</span>code</a>
+    <a href="finanzas.html" class="back-link">← volver a finanzas personales</a>
+  </nav>
+</header>
+
+<main class="wrap">
+  <div class="article-header">
+    <div class="eyebrow">$ arriboy --finanzas / artículo 04</div>
+    <h1>CAT y tasa de interés: qué significan y por qué importan más que el "enganche bonito"</h1>
+    <p class="subtitle">Dos préstamos con la misma tasa pueden costarte cantidades muy distintas — aquí está el número que de verdad revela cuánto vas a pagar.</p>
+  </div>
+
+  <div class="facts">
+    <div>
+      <div class="fact-label">CAT</div>
+      <div class="fact-value">Costo total, todo incluido</div>
+    </div>
+    <div>
+      <div class="fact-label">TASA DE INTERÉS</div>
+      <div class="fact-value">Solo una parte del costo</div>
+    </div>
+    <div>
+      <div class="fact-label">POR LEY</div>
+      <div class="fact-value">El CAT es obligatorio</div>
+    </div>
+  </div>
+
+  <div class="level-bar" role="tablist" aria-label="Nivel de explicación">
+    <span class="level-bar-label">explicar como a alguien de:</span>
+    <button class="level-tab active" data-level="primaria">Primaria</button>
+    <button class="level-tab" data-level="secundaria">Secundaria</button>
+    <button class="level-tab" data-level="prepa">Preparatoria</button>
+    <button class="level-tab" data-level="experto">Experto</button>
+  </div>
+
+  <article class="level-content active" data-level-content="primaria">
+    <h2>¿Qué es la tasa de interés?</h2>
+    <p>Cuando pides dinero prestado, tienes que devolver más de lo que te prestaron — ese "extra" que pagas se llama interés, y se mide como un porcentaje.</p>
+
+    <h2>¿Qué es el CAT?</h2>
+    <p>Es un número que junta TODO lo que vas a pagar por un préstamo: el interés, más cualquier cobro extra que a veces no se anuncia bien. Es más completo que solo ver el interés.</p>
+
+    <div class="example-box">
+      <span class="tag">EJEMPLO FÁCIL</span>
+      Es como cuando compras algo que dice "$100 pesos", pero al pagar te cobran envío y una comisión — el precio real terminó siendo más alto. El CAT es ese "precio real" de un préstamo.
+    </div>
+
+    <h2>¿Por qué debo fijarme en el CAT?</h2>
+    <p>Porque dos préstamos pueden anunciar el mismo interés, pero uno puede terminar costando mucho más si tiene cobros escondidos. El CAT te ayuda a comparar de forma justa.</p>
+  </article>
+
+  <article class="level-content" data-level-content="secundaria">
+    <h2>Tasa de interés vs. CAT</h2>
+    <p>La <strong>tasa de interés</strong> solo indica cuánto cobra la institución por prestarte dinero. Pero un crédito puede tener costos adicionales que la tasa no refleja: comisión de apertura, seguros obligatorios, IVA sobre los intereses, y penalizaciones. El <strong>CAT (Costo Anual Total)</strong> junta todo eso en un solo número.</p>
+
+    <div class="example-box">
+      <span class="tag">EJEMPLO</span>
+      Un préstamo puede anunciar una tasa de interés de 40%, pero si sumas comisiones y seguros, el CAT real puede llegar a 65%. Esa diferencia de 25 puntos es dinero real que pagas de más y que la tasa sola no te muestra.
+    </div>
+
+    <h2>¿Es obligatorio mostrarlo?</h2>
+    <p>Sí — por ley (la normativa de transparencia de CONDUSEF y Banxico), todos los bancos, sofomes y apps de crédito en México deben mostrarte el CAT antes de que firmes cualquier contrato. Si una institución no lo muestra o dice que "no aplica", es una señal de alerta.</p>
+
+    <h2>¿Cómo lo uso para comparar?</h2>
+    <p>Siempre compara el CAT entre opciones, no solo la tasa de interés anunciada — el CAT más bajo es, en la mayoría de los casos, la opción realmente más barata.</p>
+  </article>
+
+  <article class="level-content" data-level-content="prepa">
+    <h2>Qué compone el CAT</h2>
+    <p>El Costo Anual Total (CAT) es una medida estandarizada por el Banco de México desde 2007, obligatoria para bancos y sofomes. Incorpora:</p>
+    <ul class="reqs">
+      <li>La tasa de interés ordinaria.</li>
+      <li>Comisión de apertura (puede ir del 2% al 10% del monto prestado, según la institución).</li>
+      <li>Seguros obligatorios (de vida, desempleo, u otros exigidos como condición del crédito).</li>
+      <li>IVA sobre intereses y comisiones (16% adicional).</li>
+      <li>Cargos administrativos fijos y penalizaciones por pago anticipado, cuando aplican.</li>
+    </ul>
+
+    <div class="example-box">
+      <span class="tag">EJEMPLO CON NÚMEROS</span>
+      Dos préstamos anuncian la misma tasa de 28% anual. El primero cobra 3% de apertura, administración mensual y un seguro obligatorio; el segundo no cobra apertura y solo añade un seguro menor. Aunque la tasa anunciada sea idéntica, el CAT del primero puede quedar varios puntos porcentuales por arriba — es decir, terminas pagando más por el mismo monto y plazo.
+    </div>
+
+    <h2>Contexto de tasas en 2026</h2>
+    <p>La tasa de referencia de Banxico ronda el 9% anual en 2026 — es el punto de partida sobre el cual los bancos aplican un margen adicional según tu perfil de riesgo, por lo que la tasa que tú pagas siempre será mayor a esa referencia. Los CAT de créditos personales entre instituciones varían ampliamente, desde alrededor de 36% hasta más de 65%, dependiendo del banco, el plazo y tu historial crediticio.</p>
+
+    <h2>Cómo usarlo al comparar</h2>
+    <p>Nunca compares solo la tasa anunciada entre dos ofertas — compara siempre el CAT, y en igualdad de condiciones (mismo monto, mismo plazo), elige la opción con el CAT más bajo. Recuerda que tu CAT real puede diferir del "CAT promedio" publicitado, ya que depende de tu score crediticio, tu línea de crédito y tu comportamiento de pago.</p>
+  </article>
+
+  <article class="level-content" data-level-content="experto">
+    <h2>Metodología de cálculo</h2>
+    <p>El CAT se calcula mediante una fórmula basada en la Tasa Interna de Retorno (TIR) del flujo de pagos, comparando el monto neto recibido por el acreditado contra la totalidad de los pagos futuros (capital, intereses, comisiones, seguros e IVA), distribuidos en el tiempo según el calendario de pagos pactado. La fórmula oficial, publicada por Banxico, ajusta esta TIR mensual a una tasa anualizada comparable entre productos de distinto plazo y estructura de pago.</p>
+
+    <div class="example-box">
+      <span class="tag">EJEMPLO DE CÁLCULO SIMPLIFICADO</span>
+      Un préstamo de $10,000 MXN a 12 meses con pagos mensuales de $1,200 (que ya incluyen IVA y seguros) implica un flujo de +$10,000 en el periodo cero y -$1,200 en cada uno de los 12 meses siguientes. La TIR mensual resultante, anualizada bajo la metodología de Banxico, arroja el CAT — en este ejemplo, aproximadamente 38%.
+    </div>
+
+    <h2>Marco regulatorio</h2>
+    <p>La obligación de publicar el CAT está fundamentada en las disposiciones de transparencia de la CONDUSEF y circulares de Banxico aplicables a instituciones de banca múltiple, sofomes reguladas y no reguladas, y plataformas de financiamiento colectivo (fintech) sujetas a la Ley para Regular las Instituciones de Tecnología Financiera. La omisión de este indicador en publicidad o contratos constituye una infracción sujeta a sanción por parte de la autoridad correspondiente.</p>
+
+    <h2>Limitaciones del CAT como herramienta de comparación</h2>
+    <ul class="reqs">
+      <li>El "CAT promedio" publicitado corresponde a un perfil hipotético de cliente; el CAT individual real depende del score crediticio, monto de línea, y comportamiento de pago (totalero vs. revolvente) de cada acreditado.</li>
+      <li>El CAT asume el cumplimiento del calendario de pagos original; penalizaciones por atraso no siempre están incorporadas en el CAT publicado inicialmente.</li>
+      <li>Para productos de plazo variable o revolvente (como tarjetas de crédito), el CAT se calcula bajo supuestos estandarizados de uso que pueden no reflejar el patrón de consumo real del usuario.</li>
+    </ul>
+  </article>
+
+  <div class="note">
+    <strong>Nota:</strong> esta información es educativa y general, con cifras de referencia vigentes en 2026 que pueden cambiar. Verifica siempre el CAT actualizado directamente en el contrato o en el simulador oficial de Banxico/CONDUSEF antes de contratar cualquier crédito. No sustituye la asesoría de un asesor financiero certificado.
+  </div>
+</main>
+
+<footer>
+  arriboy-code · artículo educativo · 2026
+</footer>
+
+<script>
+  const tabs = document.querySelectorAll('.level-tab');
+  const contents = document.querySelectorAll('.level-content');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const level = tab.getAttribute('data-level');
+      tabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      contents.forEach(c => {
+        c.classList.toggle('active', c.getAttribute('data-level-content') === level);
+      });
+    });
+  });
+</script>
+
+</body>
+</html>
