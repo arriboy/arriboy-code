@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Salir de deudas explicado a tu nivel — Arriboy-code</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink: #0B0F14; --slate: #1B222B; --slate-2: #242C36;
+    --bone: #E7E4DA; --bone-dim: #A9A69C;
+    --gold: #F2B705; --coral: #FF4757; --mint: #37D9A4;
+    --display: 'Space Grotesk', sans-serif;
+    --body: 'Inter', sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+  }
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  html{ scroll-behavior: smooth; }
+  body{
+    background: var(--ink); color: var(--bone);
+    font-family: var(--body); line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  a{ color: inherit; }
+  .wrap{ max-width: 880px; margin: 0 auto; padding: 0 24px; }
+  header{
+    position: sticky; top: 0; z-index: 20;
+    background: rgba(11,15,20,0.85); backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(231,228,218,0.08);
+  }
+  nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding: 18px 0; max-width: 1120px; margin: 0 auto;
+    padding-left: 24px; padding-right: 24px;
+  }
+  .logo{
+    font-family: var(--mono); font-weight: 600; font-size: 1.05rem;
+    text-decoration: none; display:flex; align-items:center;
+  }
+  .logo .accent{ color: var(--gold); }
+  .logo .dim{ color: var(--bone-dim); }
+  .back-link{ font-family: var(--mono); font-size: 0.85rem; color: var(--bone-dim); text-decoration: none; }
+  .back-link:hover{ color: var(--bone); }
+  .article-header{ padding: 56px 0 28px; }
+  .eyebrow{ font-family: var(--mono); font-size: 0.8rem; color: var(--gold); margin-bottom: 16px; }
+  h1{
+    font-family: var(--display); font-weight: 700;
+    font-size: clamp(1.8rem, 4.5vw, 2.6rem); line-height: 1.15; margin-bottom: 16px;
+  }
+  .subtitle{ color: var(--bone-dim); font-size: 1.05rem; max-width: 62ch; }
+  .facts{
+    background: var(--slate); border: 1px solid rgba(231,228,218,0.08);
+    border-radius: 12px; padding: 22px 24px; margin: 32px 0 44px;
+    display:grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+  }
+  @media (max-width: 640px){ .facts{ grid-template-columns: 1fr; } }
+  .fact-label{ font-family: var(--mono); font-size: 0.75rem; color: var(--bone-dim); margin-bottom: 6px; }
+  .fact-value{ font-family: var(--display); font-weight: 600; color: var(--mint); font-size: 1.02rem; }
+  .level-bar{
+    position: sticky; top: 66px; z-index: 15;
+    background: var(--slate); border: 1px solid rgba(231,228,218,0.08);
+    border-radius: 12px; padding: 14px 16px; margin-bottom: 40px;
+    display:flex; align-items:center; gap: 10px; flex-wrap: wrap;
+  }
+  .level-bar-label{ font-family: var(--mono); font-size: 0.78rem; color: var(--bone-dim); margin-right: 4px; }
+  .level-tab{
+    font-family: var(--mono); font-size: 0.82rem; background: transparent;
+    border: 1px solid rgba(231,228,218,0.15); color: var(--bone-dim);
+    padding: 8px 14px; border-radius: 20px; cursor: pointer; transition: all .15s ease;
+  }
+  .level-tab:hover{ color: var(--bone); border-color: rgba(231,228,218,0.35); }
+  .level-tab.active{ background: var(--gold); border-color: var(--gold); color: var(--ink); font-weight: 600; }
+  .level-content{ display: none; animation: fade .3s ease; }
+  .level-content.active{ display: block; }
+  @keyframes fade{ from{ opacity: 0; transform: translateY(6px); } to{ opacity: 1; transform: translateY(0); } }
+  @media (prefers-reduced-motion: reduce){ .level-content{ animation: none; } }
+  .level-content h2{ font-family: var(--display); font-size: 1.3rem; font-weight: 600; margin: 34px 0 14px; }
+  .level-content h2:first-child{ margin-top: 0; }
+  .level-content p{ color: var(--bone); margin-bottom: 14px; max-width: 68ch; }
+  .example-box{
+    background: var(--slate-2); border-left: 3px solid var(--gold);
+    border-radius: 8px; padding: 16px 20px; margin: 18px 0; font-size: 0.95rem;
+  }
+  .example-box .tag{ font-family: var(--mono); font-size: 0.72rem; color: var(--gold); display:block; margin-bottom: 8px; }
+  ul.reqs{ margin: 0 0 14px 20px; color: var(--bone); }
+  ul.reqs li{ margin-bottom: 8px; }
+  .note{
+    background: rgba(242,183,5,0.08); border: 1px solid rgba(242,183,5,0.25);
+    border-radius: 10px; padding: 16px 20px; font-size: 0.9rem; color: var(--bone-dim); margin: 40px 0 60px;
+  }
+  .note strong{ color: var(--gold); }
+  footer{
+    border-top: 1px solid rgba(231,228,218,0.08); padding: 28px 0 40px;
+    font-family: var(--mono); font-size: 0.8rem; color: var(--bone-dim);
+    max-width: 1120px; margin: 0 auto; padding-left: 24px; padding-right: 24px;
+  }
+  :focus-visible{ outline: 2px solid var(--gold); outline-offset: 2px; }
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <a href="index.html" class="logo"><span class="accent">$</span> arriboy<span class="dim">-</span>code</a>
+    <a href="finanzas.html" class="back-link">← volver a finanzas personales</a>
+  </nav>
+</header>
+
+<main class="wrap">
+  <div class="article-header">
+    <div class="eyebrow">$ arriboy --finanzas / artículo 05</div>
+    <h1>Salir de deudas sin empeorar la situación</h1>
+    <p class="subtitle">Dos métodos probados para pagar varias deudas a la vez, qué hacer si ya no te alcanza para pagar, y los errores que hacen que una deuda manejable se vuelva una bola de nieve real.</p>
+  </div>
+
+  <div class="facts">
+    <div>
+      <div class="fact-label">BOLA DE NIEVE</div>
+      <div class="fact-value">Motivación (deuda más chica)</div>
+    </div>
+    <div>
+      <div class="fact-label">AVALANCHA</div>
+      <div class="fact-value">Ahorro (interés más alto)</div>
+    </div>
+    <div>
+      <div class="fact-label">SI YA NO PUEDES PAGAR</div>
+      <div class="fact-value">Avisa antes, no después</div>
+    </div>
+  </div>
+
+  <div class="level-bar" role="tablist" aria-label="Nivel de explicación">
+    <span class="level-bar-label">explicar como a alguien de:</span>
+    <button class="level-tab active" data-level="primaria">Primaria</button>
+    <button class="level-tab" data-level="secundaria">Secundaria</button>
+    <button class="level-tab" data-level="prepa">Preparatoria</button>
+    <button class="level-tab" data-level="experto">Experto</button>
+  </div>
+
+  <article class="level-content active" data-level-content="primaria">
+    <h2>¿Qué pasa cuando alguien debe dinero en varios lugares?</h2>
+    <p>A veces una persona debe dinero en más de un lugar a la vez (por ejemplo, en dos tarjetas distintas), y no sabe por cuál empezar a pagar primero. Para eso existen dos formas de ordenarse.</p>
+
+    <div class="example-box">
+      <span class="tag">BOLA DE NIEVE</span>
+      Pagas primero la deuda más chiquita, aunque no sea la más cara. Al terminarla, sientes que avanzas, y usas ese ánimo para seguir con la siguiente.
+    </div>
+
+    <div class="example-box">
+      <span class="tag">AVALANCHA</span>
+      Pagas primero la deuda que más "cara" te sale (la que más interés cobra), aunque tarde más en sentirse un avance. Al final, ahorras más dinero.
+    </div>
+
+    <h2>¿Qué hago si de plano no me alcanza para pagar?</h2>
+    <p>Lo peor que puedes hacer es esconderte o no decir nada. Es mejor avisar a quien te prestó el dinero (el banco, por ejemplo) que tienes un problema, antes de que se atrase más.</p>
+  </article>
+
+  <article class="level-content" data-level-content="secundaria">
+    <h2>Método bola de nieve</h2>
+    <p>Ordena tus deudas de la más pequeña a la más grande (sin importar el interés). Paga el mínimo en todas, y todo el dinero extra que tengas destínalo a la deuda más chica. Cuando la liquides, suma ese pago a la siguiente deuda de la lista, y así sucesivamente. Funciona bien si necesitas ver resultados rápido para no desanimarte.</p>
+
+    <h2>Método avalancha</h2>
+    <p>Ordena tus deudas de la que tiene mayor tasa de interés a la menor. Igual que antes, pagas el mínimo en todas y el extra lo enfocas en la de interés más alto. Es matemáticamente más eficiente porque ahorras más dinero en intereses a lo largo del tiempo, aunque los resultados tardan más en notarse.</p>
+
+    <div class="example-box">
+      <span class="tag">¿CUÁL ELEGIR?</span>
+      Si en el pasado has intentado organizarte y lo dejaste porque sentías que no avanzabas, la bola de nieve te puede ayudar más. Si prefieres la opción más eficiente en números aunque tarde más, la avalancha es mejor.
+    </div>
+
+    <h2>¿Qué hacer si ya no puedo pagar?</h2>
+    <ul class="reqs">
+      <li>Contacta al banco o institución <strong>antes</strong> de que se venza el pago, no después.</li>
+      <li>Pregunta por opciones de reestructura o pago en parcialidades — muchas instituciones las ofrecen.</li>
+      <li>Nunca pidas un préstamo nuevo solo para tapar el hoyo de otro — normalmente empeora la situación.</li>
+    </ul>
+  </article>
+
+  <article class="level-content" data-level-content="prepa">
+    <h2>Bola de nieve vs. avalancha en detalle</h2>
+    <p><strong>Bola de nieve:</strong> lista tus deudas de menor a mayor saldo. Paga el mínimo en todas, y destina cualquier dinero extra a la deuda más pequeña. Al liquidarla, el monto que le destinabas (mínimo + extra) se suma al pago de la siguiente deuda de la lista. El impulso psicológico de "tachar" deudas completas mantiene la motivación, aunque no sea la ruta matemáticamente más barata.</p>
+    <p><strong>Avalancha:</strong> lista tus deudas de mayor a menor tasa de interés. Mismo mecanismo de pago mínimo + extra, pero enfocado en la deuda más costosa primero. Reduce el total de intereses pagados a largo plazo, a costa de resultados visibles más lentos al inicio.</p>
+
+    <div class="example-box">
+      <span class="tag">EJEMPLO PRÁCTICO</span>
+      Si tienes una deuda de $2,000 al 30% de interés y otra de $8,000 al 60%, la bola de nieve atacaría primero la de $2,000 (por ser menor), mientras que la avalancha atacaría primero la de $8,000 (por tener la tasa más alta), aunque tome más tiempo ver esa primera deuda liquidada.
+    </div>
+
+    <h2>Errores que rompen cualquier estrategia</h2>
+    <ul class="reqs">
+      <li>Volver a usar la tarjeta que ya estás pagando, generando saldo nuevo sobre el que ya reducías.</li>
+      <li>Pedir un préstamo nuevo para cubrir uno anterior sin resolver el problema de fondo.</li>
+      <li>Financiar gastos no esenciales mientras se sigue una estrategia de pago de deudas.</li>
+    </ul>
+    <p>Ingresos extraordinarios (aguinaldo, bonos, devolución de impuestos) pueden acelerar mucho el proceso si se destinan directamente a las deudas pendientes, en vez de a gastos nuevos.</p>
+
+    <h2>Si ya no puedes cubrir los pagos</h2>
+    <p>Contacta al emisor de la tarjeta o préstamo <strong>antes</strong> de la fecha límite — muchas instituciones ofrecen reestructuras, quitas parciales de intereses o planes de pago ajustados si te acercas de forma proactiva. Evitar el contacto solo acumula recargos e intereses moratorios. La CONDUSEF ofrece asesoría gratuita si necesitas ayuda para negociar con tu institución financiera.</p>
+  </article>
+
+  <article class="level-content" data-level-content="experto">
+    <h2>Análisis comparativo de estrategias</h2>
+    <p>Desde una perspectiva estrictamente financiera, el método avalancha domina al método bola de nieve en costo total (minimiza el gasto acumulado en intereses), dado que prioriza el pasivo con mayor tasa efectiva. Sin embargo, la literatura de finanzas conductuales documenta consistentemente mayores tasas de adherencia y finalización con el método bola de nieve, debido al refuerzo positivo que genera la eliminación temprana y visible de obligaciones, incluso cuando esto implica un costo financiero marginal mayor.</p>
+
+    <h2>Selección de estrategia según perfil conductual</h2>
+    <p>La elección óptima no es puramente matemática: depende de la probabilidad de abandono del plan bajo cada método. Para individuos con historial de intentos fallidos de organización financiera, el sesgo hacia recompensas tempranas de la bola de nieve puede producir un mejor resultado neto (deuda efectivamente liquidada) que la ruta teóricamente más eficiente pero psicológicamente más demandante de la avalancha.</p>
+
+    <div class="example-box">
+      <span class="tag">CONSOLIDACIÓN COMO ALTERNATIVA</span>
+      Cuando existen múltiples deudas de alta tasa, consolidarlas en un solo instrumento de menor tasa (crédito personal, transferencia de saldo) puede reducir el costo total y simplificar la gestión — siempre que la tasa del instrumento consolidador sea efectivamente menor al promedio ponderado de las deudas actuales, y que no se reincida en generar saldo nuevo en las líneas ya liquidadas.
+    </div>
+
+    <h2>Protocolo ante incapacidad de pago</h2>
+    <ul class="reqs">
+      <li>Contacto proactivo con el acreedor antes del incumplimiento, no después — las instituciones suelen tener mayor flexibilidad de reestructura antes de que la cuenta caiga en mora formal.</li>
+      <li>Solicitud de reestructura, quita parcial de intereses, o plan de pagos ajustado, documentado por escrito.</li>
+      <li>Asesoría gratuita disponible a través de la CONDUSEF para negociación con instituciones financieras y orientación sobre derechos del usuario.</li>
+      <li>Evitar la sustitución de deuda mediante nuevo crédito sin resolver la causa estructural del déficit de flujo de efectivo, ya que esto típicamente incrementa el costo total y el riesgo de sobreendeudamiento.</li>
+    </ul>
+  </article>
+
+  <div class="note">
+    <strong>Nota:</strong> esta información es educativa y general. Si sientes que la situación con tus deudas te sobrepasa, la CONDUSEF ofrece orientación gratuita — no estás obligado a resolverlo solo. No sustituye la asesoría de un asesor financiero certificado.
+  </div>
+</main>
+
+<footer>
+  arriboy-code · artículo educativo · 2026
+</footer>
+
+<script>
+  const tabs = document.querySelectorAll('.level-tab');
+  const contents = document.querySelectorAll('.level-content');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const level = tab.getAttribute('data-level');
+      tabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      contents.forEach(c => {
+        c.classList.toggle('active', c.getAttribute('data-level-content') === level);
+      });
+    });
+  });
+</script>
+
+</body>
+</html>
