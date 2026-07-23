@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Comparar tarjetas de crédito explicado a tu nivel — Arriboy-code</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink: #0B0F14; --slate: #1B222B; --slate-2: #242C36;
+    --bone: #E7E4DA; --bone-dim: #A9A69C;
+    --gold: #F2B705; --coral: #FF4757; --mint: #37D9A4;
+    --display: 'Space Grotesk', sans-serif;
+    --body: 'Inter', sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+  }
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  html{ scroll-behavior: smooth; }
+  body{
+    background: var(--ink); color: var(--bone);
+    font-family: var(--body); line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  a{ color: inherit; }
+  .wrap{ max-width: 880px; margin: 0 auto; padding: 0 24px; }
+  header{
+    position: sticky; top: 0; z-index: 20;
+    background: rgba(11,15,20,0.85); backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(231,228,218,0.08);
+  }
+  nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding: 18px 0; max-width: 1120px; margin: 0 auto;
+    padding-left: 24px; padding-right: 24px;
+  }
+  .logo{
+    font-family: var(--mono); font-weight: 600; font-size: 1.05rem;
+    text-decoration: none; display:flex; align-items:center;
+  }
+  .logo .accent{ color: var(--gold); }
+  .logo .dim{ color: var(--bone-dim); }
+  .back-link{ font-family: var(--mono); font-size: 0.85rem; color: var(--bone-dim); text-decoration: none; }
+  .back-link:hover{ color: var(--bone); }
+  .article-header{ padding: 56px 0 28px; }
+  .eyebrow{ font-family: var(--mono); font-size: 0.8rem; color: var(--gold); margin-bottom: 16px; }
+  h1{
+    font-family: var(--display); font-weight: 700;
+    font-size: clamp(1.8rem, 4.5vw, 2.6rem); line-height: 1.15; margin-bottom: 16px;
+  }
+  .subtitle{ color: var(--bone-dim); font-size: 1.05rem; max-width: 62ch; }
+  .facts{
+    background: var(--slate); border: 1px solid rgba(231,228,218,0.08);
+    border-radius: 12px; padding: 22px 24px; margin: 32px 0 44px;
+    display:grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+  }
+  @media (max-width: 640px){ .facts{ grid-template-columns: 1fr; } }
+  .fact-label{ font-family: var(--mono); font-size: 0.75rem; color: var(--bone-dim); margin-bottom: 6px; }
+  .fact-value{ font-family: var(--display); font-weight: 600; color: var(--mint); font-size: 1.02rem; }
+  .level-bar{
+    position: sticky; top: 66px; z-index: 15;
+    background: var(--slate); border: 1px solid rgba(231,228,218,0.08);
+    border-radius: 12px; padding: 14px 16px; margin-bottom: 40px;
+    display:flex; align-items:center; gap: 10px; flex-wrap: wrap;
+  }
+  .level-bar-label{ font-family: var(--mono); font-size: 0.78rem; color: var(--bone-dim); margin-right: 4px; }
+  .level-tab{
+    font-family: var(--mono); font-size: 0.82rem; background: transparent;
+    border: 1px solid rgba(231,228,218,0.15); color: var(--bone-dim);
+    padding: 8px 14px; border-radius: 20px; cursor: pointer; transition: all .15s ease;
+  }
+  .level-tab:hover{ color: var(--bone); border-color: rgba(231,228,218,0.35); }
+  .level-tab.active{ background: var(--gold); border-color: var(--gold); color: var(--ink); font-weight: 600; }
+  .level-content{ display: none; animation: fade .3s ease; }
+  .level-content.active{ display: block; }
+  @keyframes fade{ from{ opacity: 0; transform: translateY(6px); } to{ opacity: 1; transform: translateY(0); } }
+  @media (prefers-reduced-motion: reduce){ .level-content{ animation: none; } }
+  .level-content h2{ font-family: var(--display); font-size: 1.3rem; font-weight: 600; margin: 34px 0 14px; }
+  .level-content h2:first-child{ margin-top: 0; }
+  .level-content p{ color: var(--bone); margin-bottom: 14px; max-width: 68ch; }
+  .example-box{
+    background: var(--slate-2); border-left: 3px solid var(--gold);
+    border-radius: 8px; padding: 16px 20px; margin: 18px 0; font-size: 0.95rem;
+  }
+  .example-box .tag{ font-family: var(--mono); font-size: 0.72rem; color: var(--gold); display:block; margin-bottom: 8px; }
+  ul.reqs{ margin: 0 0 14px 20px; color: var(--bone); }
+  ul.reqs li{ margin-bottom: 8px; }
+  .note{
+    background: rgba(242,183,5,0.08); border: 1px solid rgba(242,183,5,0.25);
+    border-radius: 10px; padding: 16px 20px; font-size: 0.9rem; color: var(--bone-dim); margin: 40px 0 60px;
+  }
+  .note strong{ color: var(--gold); }
+  footer{
+    border-top: 1px solid rgba(231,228,218,0.08); padding: 28px 0 40px;
+    font-family: var(--mono); font-size: 0.8rem; color: var(--bone-dim);
+    max-width: 1120px; margin: 0 auto; padding-left: 24px; padding-right: 24px;
+  }
+  :focus-visible{ outline: 2px solid var(--gold); outline-offset: 2px; }
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <a href="index.html" class="logo"><span class="accent">$</span> arriboy<span class="dim">-</span>code</a>
+    <a href="finanzas.html" class="back-link">← volver a finanzas personales</a>
+  </nav>
+</header>
+
+<main class="wrap">
+  <div class="article-header">
+    <div class="eyebrow">$ arriboy --finanzas / artículo 02</div>
+    <h1>Cómo comparar tarjetas de crédito sin caer en trampas de comisiones</h1>
+    <p class="subtitle">"Sin anualidad" no siempre significa sin costo — te enseño qué mirar de verdad antes de elegir una tarjeta.</p>
+  </div>
+
+  <div class="facts">
+    <div>
+      <div class="fact-label">DATO CLAVE A COMPARAR</div>
+      <div class="fact-value">El CAT, no solo la tasa</div>
+    </div>
+    <div>
+      <div class="fact-label">"SIN ANUALIDAD"</div>
+      <div class="fact-value">Revisa la letra chica</div>
+    </div>
+    <div>
+      <div class="fact-label">TODA TARJETA</div>
+      <div class="fact-value">Reporta a Buró</div>
+    </div>
+  </div>
+
+  <div class="level-bar" role="tablist" aria-label="Nivel de explicación">
+    <span class="level-bar-label">explicar como a alguien de:</span>
+    <button class="level-tab active" data-level="primaria">Primaria</button>
+    <button class="level-tab" data-level="secundaria">Secundaria</button>
+    <button class="level-tab" data-level="prepa">Preparatoria</button>
+    <button class="level-tab" data-level="experto">Experto</button>
+  </div>
+
+  <article class="level-content active" data-level-content="primaria">
+    <h2>¿Qué es una tarjeta de crédito?</h2>
+    <p>Es como si un banco te prestara dinero cada vez que compras algo con ella, y tú se lo tienes que devolver después. Si lo devuelves rápido y completo, normalmente no pagas nada extra. Si tardas en devolverlo, te cobran un dinero extra — eso se llama interés.</p>
+
+    <div class="example-box">
+      <span class="tag">EJEMPLO FÁCIL</span>
+      Es como pedirle prestado a un amigo: si le devuelves rápido lo que te prestó, no hay problema. Pero si tardas mucho, algunos podrían pedirte un poquito más de vuelta.
+    </div>
+
+    <h2>¿Por qué hay que comparar antes de elegir una?</h2>
+    <p>Porque no todas cobran lo mismo. Algunas dicen "gratis" pero tienen letras chiquitas que dicen que sí cobran si no cumples ciertas condiciones. Por eso hay que leer bien antes de decir que sí.</p>
+  </article>
+
+  <article class="level-content" data-level-content="secundaria">
+    <h2>¿Qué debo revisar antes de elegir una tarjeta?</h2>
+    <p>No te quedes solo con el anuncio de "sin anualidad" o "cashback". Los cuatro puntos que realmente importan son:</p>
+    <ul class="reqs">
+      <li><strong>El CAT (Costo Anual Total):</strong> un número que junta todos los costos en uno solo, para comparar tarjetas de forma justa.</li>
+      <li><strong>La anualidad:</strong> algunas la cobran fija, otras la condicionan a que gastes cierto monto al mes — si no cumples, te cobran.</li>
+      <li><strong>Las comisiones extra:</strong> por retirar efectivo, por reposición de tarjeta, por pagos tardíos.</li>
+      <li><strong>Las condiciones del cashback o puntos:</strong> a veces tienen fecha de vencimiento o categorías excluidas que no se anuncian a simple vista.</li>
+    </ul>
+
+    <div class="example-box">
+      <span class="tag">DATO CLAVE</span>
+      El CAT es obligatorio que todos los bancos y fintechs en México lo publiquen — búscalo siempre antes de comparar dos tarjetas, es más confiable que solo ver la tasa de interés.
+    </div>
+
+    <h2>¿Y si pago solo el mínimo cada mes?</h2>
+    <p>Si sueles dejar saldo pendiente (no pagas todo cada mes), la tasa de interés es el dato que más te debe importar, porque ese es el costo real de la deuda que arrastras.</p>
+  </article>
+
+  <article class="level-content" data-level-content="prepa">
+    <h2>Los cuatro factores que definen el costo real</h2>
+    <p>Antes de comparar nombres de tarjetas específicas, hay que entender qué compone su costo total:</p>
+    <ul class="reqs">
+      <li><strong>CAT (Costo Anual Total):</strong> integra tasa de interés, anualidad y comisiones en un solo porcentaje. Todas las instituciones en México están obligadas a publicarlo — es la forma más justa de comparar entre tarjetas.</li>
+      <li><strong>Anualidad condicionada:</strong> muchas tarjetas "sin anualidad" solo la eximen si cumples un gasto mínimo mensual o anual — si no lo cumples, se cobra retroactivamente.</li>
+      <li><strong>Comisiones por uso:</strong> disposición de efectivo, reposición por robo o extravío, y cargos por atraso pueden pesar más que la anualidad que evitaste.</li>
+      <li><strong>Recompensas reales vs. anunciadas:</strong> revisa fechas de vencimiento de puntos, categorías excluidas, y montos mínimos para poder canjear — el cashback "de 5%" a veces solo aplica a categorías muy específicas.</li>
+    </ul>
+
+    <div class="example-box">
+      <span class="tag">CÓMO CALCULAR EL COSTO TOTAL</span>
+      Suma la anualidad (si aplica), cualquier comisión que sepas que vas a generar (por ejemplo, si sabes que vas a retirar efectivo), y compara ese total contra el valor real de las recompensas que sí vas a usar — no las que suenan bien en el anuncio.
+    </div>
+
+    <h2>Totalero vs. revolvente</h2>
+    <p>Si pagas el saldo completo cada mes (eres "totalero"), la anualidad y las recompensas importan más que la tasa de interés, porque nunca la pagas. Si dejas saldo pendiente (revolvente), la tasa de interés se vuelve el factor más importante, ya que ahí sí se aplica sobre lo que debes.</p>
+
+    <h2>Construcción de historial</h2>
+    <p>Toda tarjeta de crédito reporta tu comportamiento al Buró de Crédito — usarla y pagarla a tiempo construye tu historial; usarla mal (atrasos, saldo alto constante) lo daña. Esto es relevante incluso si eliges una tarjeta "básica" solo para empezar tu historial.</p>
+  </article>
+
+  <article class="level-content" data-level-content="experto">
+    <h2>Componentes del CAT</h2>
+    <p>El Costo Anual Total (CAT) es un indicador estandarizado y regulado por la CNBV y Banxico, que expresa en un solo porcentaje el costo total del crédito, incorporando la tasa de interés ordinaria, comisiones (anualidad, apertura, disposición de efectivo, entre otras) y, cuando aplica, el costo de seguros obligatorios asociados al producto. Su cálculo permite comparabilidad entre productos de distintas instituciones bajo una metodología uniforme, a diferencia de la tasa de interés nominal, que por sí sola subestima el costo real cuando hay comisiones significativas.</p>
+
+    <h2>Tasa ordinaria vs. moratoria</h2>
+    <p>La tasa de interés ordinaria aplica sobre saldos no liquidados en su totalidad al corte; la tasa moratoria (generalmente más alta) se activa ante incumplimiento del pago mínimo en la fecha límite. Ambas deben estar publicadas en el contrato y en el estado de cuenta — la CONDUSEF ha señalado el desconocimiento de estas tasas como un factor relevante en el sobreendeudamiento de usuarios en México.</p>
+
+    <div class="example-box">
+      <span class="tag">TRANSPARENCIA REGULATORIA</span>
+      La CNBV y CONDUSEF exigen que cualquier publicidad de "sin anualidad" incluya, de forma clara, las condiciones de reactivación de dicho cobro (gasto mínimo, cancelación de promoción). La ausencia de esta claridad en la publicidad es motivo de observación regulatoria.
+    </div>
+
+    <h2>Estructura de decisión por perfil de uso</h2>
+    <ul class="reqs">
+      <li><strong>Perfil totalero</strong> (liquida saldo completo cada corte): la variable relevante es anualidad neta de recompensas realmente utilizables — la tasa de interés es irrelevante en la práctica.</li>
+      <li><strong>Perfil revolvente</strong> (mantiene saldo entre cortes): la tasa de interés ordinaria domina el costo total, y el CAT se vuelve el indicador prioritario de comparación.</li>
+      <li><strong>Perfil sin historial</strong>: la aprobación y el reporte oportuno al Buró de Crédito pesan más que las condiciones de costo marginal, dado que el objetivo primario es la construcción de historial crediticio.</li>
+    </ul>
+
+    <h2>Riesgo sistémico de desconocimiento</h2>
+    <p>Reportes de la CONDUSEF identifican el desconocimiento de comisiones y tasas como una causa relevante del sobreendeudamiento de usuarios de tarjetas de crédito en México, en un contexto de crecimiento sostenido en el número de operaciones y montos promedio reportados por Banxico.</p>
+  </article>
+
+  <div class="note">
+    <strong>Nota:</strong> esta información es educativa y general. No recomienda ninguna tarjeta o institución en particular — compara siempre el CAT y las condiciones actualizadas directamente en el sitio oficial del emisor antes de decidir. No sustituye la asesoría de un asesor financiero certificado.
+  </div>
+</main>
+
+<footer>
+  arriboy-code · artículo educativo · 2026
+</footer>
+
+<script>
+  const tabs = document.querySelectorAll('.level-tab');
+  const contents = document.querySelectorAll('.level-content');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const level = tab.getAttribute('data-level');
+      tabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      contents.forEach(c => {
+        c.classList.toggle('active', c.getAttribute('data-level-content') === level);
+      });
+    });
+  });
+</script>
+
+</body>
+</html>
