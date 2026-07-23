@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fondo de emergencia explicado a tu nivel — Arriboy-code</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink: #0B0F14; --slate: #1B222B; --slate-2: #242C36;
+    --bone: #E7E4DA; --bone-dim: #A9A69C;
+    --gold: #F2B705; --coral: #FF4757; --mint: #37D9A4;
+    --display: 'Space Grotesk', sans-serif;
+    --body: 'Inter', sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+  }
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  html{ scroll-behavior: smooth; }
+  body{
+    background: var(--ink); color: var(--bone);
+    font-family: var(--body); line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  a{ color: inherit; }
+  .wrap{ max-width: 880px; margin: 0 auto; padding: 0 24px; }
+  header{
+    position: sticky; top: 0; z-index: 20;
+    background: rgba(11,15,20,0.85); backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(231,228,218,0.08);
+  }
+  nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding: 18px 0; max-width: 1120px; margin: 0 auto;
+    padding-left: 24px; padding-right: 24px;
+  }
+  .logo{
+    font-family: var(--mono); font-weight: 600; font-size: 1.05rem;
+    text-decoration: none; display:flex; align-items:center;
+  }
+  .logo .accent{ color: var(--gold); }
+  .logo .dim{ color: var(--bone-dim); }
+  .back-link{ font-family: var(--mono); font-size: 0.85rem; color: var(--bone-dim); text-decoration: none; }
+  .back-link:hover{ color: var(--bone); }
+  .article-header{ padding: 56px 0 28px; }
+  .eyebrow{ font-family: var(--mono); font-size: 0.8rem; color: var(--gold); margin-bottom: 16px; }
+  h1{
+    font-family: var(--display); font-weight: 700;
+    font-size: clamp(1.8rem, 4.5vw, 2.6rem); line-height: 1.15; margin-bottom: 16px;
+  }
+  .subtitle{ color: var(--bone-dim); font-size: 1.05rem; max-width: 62ch; }
+  .facts{
+    background: var(--slate); border: 1px solid rgba(231,228,218,0.08);
+    border-radius: 12px; padding: 22px 24px; margin: 32px 0 44px;
+    display:grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+  }
+  @media (max-width: 640px){ .facts{ grid-template-columns: 1fr; } }
+  .fact-label{ font-family: var(--mono); font-size: 0.75rem; color: var(--bone-dim); margin-bottom: 6px; }
+  .fact-value{ font-family: var(--display); font-weight: 600; color: var(--mint); font-size: 1.05rem; }
+  .level-bar{
+    position: sticky; top: 66px; z-index: 15;
+    background: var(--slate); border: 1px solid rgba(231,228,218,0.08);
+    border-radius: 12px; padding: 14px 16px; margin-bottom: 40px;
+    display:flex; align-items:center; gap: 10px; flex-wrap: wrap;
+  }
+  .level-bar-label{ font-family: var(--mono); font-size: 0.78rem; color: var(--bone-dim); margin-right: 4px; }
+  .level-tab{
+    font-family: var(--mono); font-size: 0.82rem; background: transparent;
+    border: 1px solid rgba(231,228,218,0.15); color: var(--bone-dim);
+    padding: 8px 14px; border-radius: 20px; cursor: pointer; transition: all .15s ease;
+  }
+  .level-tab:hover{ color: var(--bone); border-color: rgba(231,228,218,0.35); }
+  .level-tab.active{ background: var(--gold); border-color: var(--gold); color: var(--ink); font-weight: 600; }
+  .level-content{ display: none; animation: fade .3s ease; }
+  .level-content.active{ display: block; }
+  @keyframes fade{ from{ opacity: 0; transform: translateY(6px); } to{ opacity: 1; transform: translateY(0); } }
+  @media (prefers-reduced-motion: reduce){ .level-content{ animation: none; } }
+  .level-content h2{ font-family: var(--display); font-size: 1.3rem; font-weight: 600; margin: 34px 0 14px; }
+  .level-content h2:first-child{ margin-top: 0; }
+  .level-content p{ color: var(--bone); margin-bottom: 14px; max-width: 68ch; }
+  .example-box{
+    background: var(--slate-2); border-left: 3px solid var(--gold);
+    border-radius: 8px; padding: 16px 20px; margin: 18px 0; font-size: 0.95rem;
+  }
+  .example-box .tag{ font-family: var(--mono); font-size: 0.72rem; color: var(--gold); display:block; margin-bottom: 8px; }
+  ul.reqs{ margin: 0 0 14px 20px; color: var(--bone); }
+  ul.reqs li{ margin-bottom: 8px; }
+  .note{
+    background: rgba(242,183,5,0.08); border: 1px solid rgba(242,183,5,0.25);
+    border-radius: 10px; padding: 16px 20px; font-size: 0.9rem; color: var(--bone-dim); margin: 40px 0 60px;
+  }
+  .note strong{ color: var(--gold); }
+  footer{
+    border-top: 1px solid rgba(231,228,218,0.08); padding: 28px 0 40px;
+    font-family: var(--mono); font-size: 0.8rem; color: var(--bone-dim);
+    max-width: 1120px; margin: 0 auto; padding-left: 24px; padding-right: 24px;
+  }
+  :focus-visible{ outline: 2px solid var(--gold); outline-offset: 2px; }
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <a href="index.html" class="logo"><span class="accent">$</span> arriboy<span class="dim">-</span>code</a>
+    <a href="finanzas.html" class="back-link">← volver a finanzas personales</a>
+  </nav>
+</header>
+
+<main class="wrap">
+  <div class="article-header">
+    <div class="eyebrow">$ arriboy --finanzas / artículo 01</div>
+    <h1>Fondo de emergencia: cuánto ahorrar y dónde guardarlo</h1>
+    <p class="subtitle">El colchón financiero que evita que una sorpresa mala (perder el trabajo, una reparación, un imprevisto médico) se convierta en una deuda con intereses.</p>
+  </div>
+
+  <div class="facts">
+    <div>
+      <div class="fact-label">META GENERAL</div>
+      <div class="fact-value">3 a 6 meses de gastos</div>
+    </div>
+    <div>
+      <div class="fact-label">INGRESO VARIABLE</div>
+      <div class="fact-value">9 a 12 meses</div>
+    </div>
+    <div>
+      <div class="fact-label">DÓNDE GUARDARLO</div>
+      <div class="fact-value">Cuenta líquida, aparte</div>
+    </div>
+  </div>
+
+  <div class="level-bar" role="tablist" aria-label="Nivel de explicación">
+    <span class="level-bar-label">explicar como a alguien de:</span>
+    <button class="level-tab active" data-level="primaria">Primaria</button>
+    <button class="level-tab" data-level="secundaria">Secundaria</button>
+    <button class="level-tab" data-level="prepa">Preparatoria</button>
+    <button class="level-tab" data-level="experto">Experto</button>
+  </div>
+
+  <article class="level-content active" data-level-content="primaria">
+    <h2>¿Qué es un fondo de emergencia?</h2>
+    <p>Es dinero que guardas y no tocas para nada, excepto cuando pasa algo malo e inesperado — como que se descomponga algo importante, o que alguien se enferme. Es como un paracaídas: no lo usas todos los días, pero cuando lo necesitas, te salva.</p>
+
+    <div class="example-box">
+      <span class="tag">EJEMPLO FÁCIL</span>
+      Imagina que guardas unas monedas en una alcancía especial que solo abres si de verdad, de verdad, pasa algo urgente — no para comprar dulces.
+    </div>
+
+    <h2>¿Por qué es importante?</h2>
+    <p>Porque si no tienes ese dinero guardado y pasa algo inesperado, tendrías que pedir dinero prestado — y pedir prestado casi siempre significa pagar más de lo que pediste (eso se llama interés).</p>
+
+    <h2>¿Dónde se guarda?</h2>
+    <p>En un lugar seguro, separado del dinero que usas para gastos normales, para que no se te vaya mezclando y gastando sin querer.</p>
+  </article>
+
+  <article class="level-content" data-level-content="secundaria">
+    <h2>¿Qué es un fondo de emergencia?</h2>
+    <p>Es un ahorro reservado exclusivamente para imprevistos que afectan tu estabilidad: perder el empleo, un gasto médico, una reparación urgente. No es para vacaciones ni compras planeadas — es tu red de seguridad.</p>
+
+    <h2>¿Cuánto debo ahorrar?</h2>
+    <p>La recomendación general es entre <strong>3 y 6 meses</strong> de tus gastos esenciales (renta, comida, transporte, servicios) — no de tu sueldo completo. Por ejemplo, si gastas $10,000 pesos al mes en lo esencial, tu meta estaría entre $30,000 y $60,000 pesos.</p>
+
+    <div class="example-box">
+      <span class="tag">EJEMPLO</span>
+      Si tienes un empleo estable, apunta a 3-4 meses. Si trabajas por tu cuenta o tus ingresos varían mes a mes, es más prudente ir por 6 meses o más, porque tu "colchón" necesita ser más grueso.
+    </div>
+
+    <h2>¿Cómo empiezo si no tengo nada ahorrado?</h2>
+    <ul class="reqs">
+      <li>Empieza con una meta pequeña: $500 a $1,000 pesos, para imprevistos chicos.</li>
+      <li>Sube a una meta intermedia: un mes completo de gastos esenciales.</li>
+      <li>Sigue hasta llegar a tu meta completa de 3 a 6 meses.</li>
+    </ul>
+
+    <h2>¿Dónde lo guardo?</h2>
+    <p>En una cuenta separada de la que usas para tus gastos del día a día, para que no te dé la tentación de gastarlo. Idealmente en una cuenta que puedas retirar de inmediato, sin esperar días ni pagar penalización.</p>
+  </article>
+
+  <article class="level-content" data-level-content="prepa">
+    <h2>¿Qué es un fondo de emergencia?</h2>
+    <p>Es una reserva de liquidez diseñada específicamente para absorber choques financieros imprevistos (pérdida de empleo, gasto médico, reparación mayor) sin recurrir a deuda. Su función no es generar el mejor rendimiento posible, sino estar disponible de inmediato cuando se necesita.</p>
+
+    <h2>Cómo calcular tu meta</h2>
+    <p>La meta se calcula sobre tus <strong>gastos esenciales mensuales</strong> (no tu ingreso ni tu estilo de vida completo): renta, alimentación, transporte, servicios, seguros y deudas mínimas. Multiplica ese total por el número de meses que corresponda a tu perfil:</p>
+    <ul class="reqs">
+      <li><strong>3 meses:</strong> empleo estable, ingreso fijo, sin dependientes económicos.</li>
+      <li><strong>6 meses:</strong> perfil más conservador, o con dependientes económicos.</li>
+      <li><strong>9 a 12 meses:</strong> ingresos variables, trabajo independiente, comisiones o freelance.</li>
+    </ul>
+
+    <div class="example-box">
+      <span class="tag">CONSTRUCCIÓN POR ETAPAS</span>
+      No necesitas juntar el monto completo de golpe. Etapa 1: mini-fondo de $500-$1,000. Etapa 2: un mes de gastos esenciales. Etapa 3: meta completa de 3-6 (o más) meses. Automatizar una transferencia cada quincena, apenas recibes tu ingreso, funciona mejor que "ahorrar lo que sobra" — porque casi nunca sobra nada si no se aparta primero.
+    </div>
+
+    <h2>Dónde guardarlo — los criterios que importan</h2>
+    <ul class="reqs">
+      <li><strong>Liquidez:</strong> debes poder retirarlo de inmediato, sin esperar días ni romper un plazo fijo.</li>
+      <li><strong>Separación:</strong> en una cuenta distinta a la de tus gastos diarios, para evitar la tentación de tocarlo.</li>
+      <li><strong>Algo de rendimiento:</strong> cuentas digitales con rendimiento (varias fintechs en México ofrecen tasas anuales competitivas) son mejores que dejarlo sin generar nada, pero la prioridad siempre es la liquidez, no la tasa.</li>
+    </ul>
+    <p>Los plazos fijos, CETES a mediano/largo plazo, acciones o criptomonedas <strong>no son adecuados</strong> para el fondo de emergencia — el objetivo no es que crezca mucho, sino que esté disponible cuando lo necesites sin penalización ni pérdida de valor por volatilidad.</p>
+  </article>
+
+  <article class="level-content" data-level-content="experto">
+    <h2>Función y dimensionamiento</h2>
+    <p>El fondo de emergencia opera como un instrumento de gestión de riesgo de liquidez a nivel de las finanzas personales, no como un vehículo de inversión. Su dimensionamiento óptimo depende de la volatilidad del ingreso, la elasticidad de los gastos esenciales, y el acceso alternativo a crédito de bajo costo. Para asalariados con ingreso estable, 3-6 meses de gastos esenciales suele ser suficiente; para ingresos variables (comisiones, freelance, actividad empresarial), el rango recomendado sube a 9-12 meses, dado el mayor coeficiente de variación del flujo de efectivo mensual.</p>
+
+    <h2>Estructura en capas (tiered liquidity)</h2>
+    <p>Una estructura más sofisticada divide el fondo en dos niveles: un <strong>tier 1</strong> completamente líquido (cuenta digital con rendimiento, disponible en 24 horas o menos) que cubre 1-2 meses de gastos, y un <strong>tier 2</strong> en instrumentos de muy corto plazo (CETES a 28 o 91 días vía Cetesdirecto o brokers como GBM) para el resto del fondo, aceptando una liquidez ligeramente menor a cambio de una tasa real más competitiva.</p>
+
+    <div class="example-box">
+      <span class="tag">COSTO DE OPORTUNIDAD</span>
+      Mantener el fondo completo en un instrumento de baja volatilidad implica un costo de oportunidad frente a activos de mayor rendimiento esperado (renta variable). Este costo es la prima que se paga por eliminar el riesgo de tener que liquidar una inversión volátil en el peor momento posible — precisamente cuando ocurre la emergencia y los mercados pueden estar a la baja.
+    </div>
+
+    <h2>Por qué no usar renta variable ni cripto</h2>
+    <p>El descalce entre el propósito del fondo (disponibilidad inmediata, valor nominal preservado) y la naturaleza de estos instrumentos (alta volatilidad de corto plazo, posible pérdida de capital en el momento exacto de necesitar liquidez) hace que sean inadecuados como vehículo primario del fondo de emergencia, independientemente de su rendimiento esperado a largo plazo.</p>
+
+    <h2>Consideración conductual</h2>
+    <p>La separación física/institucional del fondo (cuenta distinta, sin tarjeta de débito vinculada de uso frecuente) reduce la fricción hacia el gasto discrecional y actúa como mecanismo de precompromiso (commitment device), un hallazgo consistente en la literatura de finanzas conductuales sobre autocontrol financiero.</p>
+  </article>
+
+  <div class="note">
+    <strong>Nota:</strong> esta información es educativa y general. No sustituye la asesoría de un planificador financiero certificado para tu situación particular — el monto y el instrumento ideal dependen de tus circunstancias específicas.
+  </div>
+</main>
+
+<footer>
+  arriboy-code · artículo educativo · 2026
+</footer>
+
+<script>
+  const tabs = document.querySelectorAll('.level-tab');
+  const contents = document.querySelectorAll('.level-content');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const level = tab.getAttribute('data-level');
+      tabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      contents.forEach(c => {
+        c.classList.toggle('active', c.getAttribute('data-level-content') === level);
+      });
+    });
+  });
+</script>
+
+</body>
+</html>
